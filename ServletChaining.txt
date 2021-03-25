@@ -1,0 +1,107 @@
+Example: Placing an Order in e-commerce app(Amazon app).
+Step-1: Select the product
+        -->Add Cart
+        -->Buy Now---?
+Step-2: Select Delivery address
+        -->Choose from existing---?
+        -->Add an new address
+Step-3: Initiate Payment
+        -->COD
+        -->CC/DC
+        -->Wallets-----------?
+        -->Amazon UPI/Pay
+        -->Net Banking
+Step-4: Transaction must be Successfull.
+Step-5: Order is Placed.
+Step-6: Invoice Generated.
+
+===============================================================
+
+Example: Gmail App Login
+   Step-1: User has to provide EmailID
+   Step-2: User has to provide Password
+
+===============================================================
+            [servletchaining]
+LoginServlet----------------->LogoutServlet
+
+==============================================================
+NOTE:
+1. As Programmer, We Use servlet chaining concept to link ServletClass
+   to Another Functionality in an application.
+
+2. Functionality means HTML File {or} JSP File {or} Another Servlet Class.
+=============================================================
+Syntax:
+
+1. RequestDispatcher dispatcher = req.getRequestDispatcher(String FileName);
+       where RequestDispatcher is an Interface Present in javax.servlet package
+           getRequestDispatcher is an Helper Method.
+
+2. dispatcher.forward(req,resp);------->Single Direction
+       (or)
+   dispatcher.include(req,resp);------->Both Direction
+================================================================
+                      JSP(Java Server Pages)
+
+1. As a Programmer, We get Situations where Output on Browser is combination of
+    Java Coding and HTML Coding.
+
+2. java.io.PrintWriter class(inside ServletClass) basically helps programmer
+    to give output on browser of Java Coding.
+
+3. To Overcome the above drawback, Programmers depend on JSP Files
+   Where JSP files gives output on browser which java coding and HTML coding Together.
+
+COMBINATION OF HTML AND JAVA IS REFERRED AS JSP.
+
+=================================================================
+
+NOTE: Programmatically, All JSP files must be created under "WebContent" folder
+      of Dynamic web project.
+
+NOTE: In JSP file, Programmers will write Java Code using Scriptlets.
+      Scriptlets are indicated by <% --Java Code-- %>
+
+NOTE: In JSP File, <%= %> is used to print contents of java variables on Browser.
+
+=====================================================================
+Example:
+               [ServletClass]                        [ServletClass]
+Mail.html---->CheckMailId.java---->Password.html---->CheckPassword.java--->First.jsp--->VerifyOTP.java
+
+============================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

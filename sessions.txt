@@ -1,0 +1,55 @@
+Sessions-->Time interval between Login and Logout of user in Application.
+
+NOTE:Sessions is supported by javax.servlet.http.HttpServlet class.
+
+Example:(Booking An Ticket)
+Step-1: SignIn into Redbus App(Using PhoneNumber vth OTP)
+Step-2: Provide From, To and DOJ for Searching Buses.
+Step-3: Select Bus Operator and Seat number to proceed for Booking
+Step-4: Provide Passenger Info
+Step-5: Make an Payment
+Step-6: Ticket Confirmed
+Step-7: Signout
+
+Importance Of Sessions:
+1. Sessions are used to share information between login to logout.
+2. Sessions are used to set time limit.
+
+NOTE: Number of Calls(query execution) to Database must be Less.
+
+Syntax:
+1. To start Sessions in an Application, Programmers have to make use of 
+      javax.servlet.http.HttpSession Interface.
+   getSession() is an helper method for HttpSession Interface.
+   
+   HttpSession session = req.getSession();
+
+2. To Store Information into Sessions, Programmers have to make use of
+    setAttribute("Identifier", InfoToBeStoredIntoSession).
+
+    session.setAttribute("identifier", value);
+
+3. To Set Time Limit For Sessions, Programmers have to make use of 
+    setMaxInactiveInterval(expiryTime).
+
+    session.setMaxInactiveInterval(6000);
+ 
+4. To Retrieve Information from Sessions,Programmers have to make us of
+    getAttribute("identifier");
+        
+NOTE: All Values in Sessions will be stored in the form of Object TYpe.
+       while using, we have to downcast it.
+
+    (downcast) session.getAttribute("identifier");    
+
+5. To end Sessions.
+    
+    session.invalidate();
+==============================================================
+
+
+
+
+
+
+

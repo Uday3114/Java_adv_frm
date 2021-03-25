@@ -1,0 +1,36 @@
+Steps to be followed for Context-Parameters and Context-Object
+ ---->Initialization Phase is represented using init()
+
+NOTE:Annotations can be used for one specific/particular class
+     whereas XML File Can be accessed throughout the Application.
+
+Step-1: Declaring Context-Parameters by using XML File(web.xml).
+    -->To Generate XML File, Right Click on the project and select
+       "Java EE Tools" Option and Click on "Generate Deployment Descriptor stub".
+    -->Syntax to declare context parameters is:
+          <context-param>
+              <param-name>identifier</param-name>
+              <param-value>actualvalue</param-value>
+          </context-param>
+
+Step-2: To Use Context-Parameters, we have to over-ride init()
+        without having argument.
+   --->Programmers have to get reference variable of Context Object
+        by using getServletContext().
+      
+       ServletContext ctx = getServletContext();
+
+   ----> ctx.getInitParameter() is used for context-parameters, which
+      is present in XML File
+
+
+
+
+
+
+
+
+
+
+
+

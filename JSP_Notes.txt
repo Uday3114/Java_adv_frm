@@ -1,0 +1,99 @@
+NOTE: All JSP Files are Internally Behaving like Servlet Class{HttpServlet}.
+
+NOTE: To Start Working With JSP Files, Programmers have to make use of servlet-api.jar file.
+
+Flow of execution of JSP File is:
+1. Programmers will write code in JSP File.
+2. All JSP Files will converted into ServletClass having .java extension.
+3. ServletClass having .java extension undergoes compilation, which results in ServletClass having .class extension.
+4. then ServletClass having .class extension is given for Execution.
+5. finally, We see output of JSP Files on Browser.
+
+NOTE: All JSP files are Converted into ServletClass during Runtime(after running JSP File).
+      Converted ServletClass is referred as Translated-Servlets(T-Servlets)
+
+NOTE: T-Servlets naming format is NameOfJspFile_jsp.java, followed by NameOfJspFile_jsp.java.class.
+
+Example-1: If JSP fileName is Sample.jsp, then T-Servlets name is Sample_jsp
+Example-2: If JSP FileName is Design.jsp, then T-Servlets name is Design_jsp
+
+===========================================================================
+
+JSP Elements(To Differentiate Java Code in JSP File):
+1. <%! --Java code-- %> -------> Declaration JSP Elements.
+2. <% --Java code-- %> --------> Scriptlets JSP Elements.
+3. <%= --Java code-- %> -------> Expression JSP Elements.
+
+NOTE: Code Written within Scriptlets JSP Elements will be given to _jspService().
+
+--> The Purpose of Declaration JSP Elements is "To Provide Global scope for contents".
+--> The Purpose of Scriptlets JSP Elements is "To Provide Loacl scope for contents".
+--> The Purpose of Expression JSP Elements is "To provide output on Browser".
+
+Example-1: Declare Global varaible ---> Declaration JSP Element
+Example-2: Create an Object of an Class ---> Scriptlets JSP Element
+Example-3: Calling an method ----> Scriptlets JSP Elements
+Example-4: Write/Create/Declare Getters and Setters Method ---->Declaration JSP Elements
+Example-5: Invoke/Call Constructor ---> Scriptlets JSP Element
+Example-6: Write/Create/Declare Constructor ---> Declaration JSP Elements
+Example-7: Fetch UserInfo From HTML File to JSP File ---> Scriptlets JSP Element
+Example-8: Start Session ---> Scriptlets JSP Element
+=======================================================================
+
+Assignment:
+--> Declare 2-Private variables.
+--> Give the Access to the variables by using Constructor as well as Getters And Setters methos.
+--> Initialize variables.
+--> Print the variables onto Browser.
+----------------------------------------------------------------
+NOTE: In JSP File, We cannot create Class. Hence, we cannot create Constructors.
+
+NOTE: Since Constructors are not allowed in JSP File, we initialize variables only 
+      by using Getters and Setters Method.
+==============================================================
+Assignment:
+--> Write Program to convert temparature from Degree celsius to Fahrenheit.
+    1.Use HTML Page to Get Temparature values from user.
+    2.Use ServletClass to Convert degree celsius to fahrenheit.
+      NOTE: (degreeCelsius*9)/5 + 32 = fahrenheit
+    3.Use JSP File to Give output on browser.
+==================================================================
+
+JSP LifeCycle:
+JSP LifeCycle consists of 5-Phases:
+1. Translation Phase---------->(JSP file--->ServletClass[T-Servlets])
+2. Instantiation Phase-------->servlet object------->Default Constructor
+3. Initialization Phase------->config object and context object
+4. Service Phase-------------->request object and response object
+5. Destruction Phase---------->Objects will be destroyed
+
+NOTE : servlet object, config object, context object, request object, response object,
+       session object and exception object. These Objects are referred 
+       as IMPLICIT OBJECTS.
+
+NOTE:  IMPLICIT OBJECTS are accessed directly in JSP File 
+       without the help of any methods
+
+=========================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

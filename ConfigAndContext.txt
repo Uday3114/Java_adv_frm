@@ -1,0 +1,165 @@
+4-Phases of ServletLifeCycle
+1. Instantition Phase--->Servlet Object is created by Jee container
+                     --->using Default Constructor
+         ---> If Default constructor is not present, InstantiationException
+
+NOTE:Default Constructor (or) Zero-Parameter constructor (or)
+     No-Argument constructor (or) compiler-added constructor
+
+2. Initialization Phase--->Passing values which are varying in anapp
+   -->Init-Parameters by using Config Object.
+   -->Context-parameters by using Context Object.
+   -->Init-Parameters is used for only one servlet Class,(Local scope)
+   -->context-parameters is used for All servlet class,(Global scope)
+
+3. Service Phase--->creates Request object and Response object
+    -->MultiThreaded--'N' number of req and resp object, but 'N'
+                 will be equal to number of users.
+    -->SingleThreaded--'1' req object and '1' resp object
+
+NOTE: By default, Servlet Class are MultiThreaded. Explicitly,
+      Servlet Class can be made as SingleThreaded by using
+     'synchornized' keyword.
+
+4. Destruction Phase-->Objects will be destroyed by Jee container
+
+================================================================
+Config Object and Context Object:
+
+Example 1: One College-->TPO Office-->TPO Officer
+    TPO Officer will receive mail from accenture, conducting off-campus drive
+       ECE---->R1
+       CSE---->R2
+       EEE---->R3
+       civil--->R4
+       mech----->R5  
+
+      [Config Object]                       [init-parameters]
+-->If Representatives makes any mistake in sharing the Info, then 
+              Only one branch is affected.
+
+     [Context Object]           [context-parameters]
+-->If TPO makes any mistake in sharing in Info, then
+            All branches is affected.
+
+=========================================================
+Example 2: 
+context-parameters----[RULES]         [RULES]--Init-Parameters
+                  CEO--------Jsp-Hyd----------->M1[config Obj]
+[Context Object]  CEO--------Jsp-Blr----------->M2[config obj]
+                  CEO--------Jsp-Chn----------->M3[config obj]
+
+=========================================================
+Example-3: Rytu bazaar
+                   Association----shop-1------->O1
+                   Association----shop-2------->O2
+                   Association----shop-3------->O3
+   [Init-parameters]   [config Obj]
+  --Price tag given by owner
+  
+  [Context-parameters]  [context-obj]
+  --Price tag given by Association
+==========================================================
+Conclusion: Config Object and Context Phase is created during 
+            Initialization Phase by Jee container.
+
+        config object---->Local scope(Init-parameters)
+        context object--->global scope(context-parameters)
+      
+       Number of Config Object is Multiple which is equal to 
+                   number of servlet class object
+       Number of Context Object is Only one for One web App
+=============================================================
+Instantiation Phase---->Default Constructor in Servlet class
+Initialization Phase---->init(config)
+Service Phase------->service(request,response)
+Destruction Phase---->after user receives response
+==========================================================
+
+
+
+
+
+
+
+
+
+
+  
+          
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

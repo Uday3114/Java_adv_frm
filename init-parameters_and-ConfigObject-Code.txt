@@ -1,0 +1,45 @@
+1. Instantiation Phase------->Servlet Object--->InstantiationException(500)
+2. Initialization Phase------>Config Object---->init-parameters(Local scope) 
+                       ------>Context Object--->context-parameters(Global scope)
+3. Service Phase------------->Request Object and Response Object
+4. Destruction Phase--------->All the Objects created will be destroyed
+
+=================================================================
+
+Program for passing values to servlet class using config object(init-parameter)
+
+1. Syntax to declare Init-Parameters(Initialization-Parameters):
+   @WebServlet(
+		urlPatterns = { "relative path of servlet class" }, 
+		initParams = { 
+		   @WebInitParam(name = "identifier", value = "65")
+		})
+
+2. Over-ride init(config) and call getInitParameter(String identifier).
+
+=====================================================================
+
+getParameter()------>Used to Fetch UserInfo from HTML File
+              ------>called by using request reference variable
+              ------>it is used only within service()
+
+getInitParameter()--->Used to Fetch Init-parameters from Annotations
+               ------>Called by using config reference variable
+               ------>it is used only within init()
+
+====================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
