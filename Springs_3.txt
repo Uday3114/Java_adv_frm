@@ -1,0 +1,110 @@
+NOTE: In XML file, We can create multiple objects. But we cannot duplicate "id" in XML File.
+
+Scopes of Beans in XML File:
+1. <bean> tag allows five important attributes.
+   i). "id" attribute takes reference variable name.
+   ii). "class" attribute takes FQCN of Object which has to be created.
+   iii). "scope" attribute defines behaviour of Object Creation.
+         It takes 2-important values. singleton, prototype.
+        --> If scope="singleton", we have only one object created.
+        --> If scope="prototype", we have multiple instance of object created,
+            for every call of getBean().
+   NOTE: "scope" attribute is optional. Hence by default, scope is taken as "singleton".
+   iv). "init-method" attribute takes method name which has to be executed immediately
+         after object creation.
+   v). "destroy-method" attribute takes method name which has to be executed immediately
+         after object destruction.
+
+NOTE: "id", "class" attributes are mandatory for <bean> tag whereas     
+      "scope", "init-method", "destroy-method" are optional for <bean> tag.
+
+============================================================================
+Dependency Injection:
+     --> Process of Initializing variables of an class through XML File or annotations 
+         is called as Dependency Injection.
+     --> We have two types of Dependency Injection.
+         i. Dependency Injection using Constructor.
+         ii. Dependency Injection using getters and setters method.
+
+i. Dependency Injection using Constructor:
+   --> To Perform this process, we make use of <constructor-arg> tag
+   --> The Number of <constructor-arg> tag in XML file decides 
+       the number of arguments in constructor to get executed.
+   
+   Example: In Case, if we use 4 <constructor-arg> tag in XML File,
+            then 4-arguments constructor is executed.
+
+NOTE: If <constructor-arg> tag is not used in XML File, then default constructor
+      is executed.
+
+   --> The different attributes allowed for <constructor-arg> tag is:
+       1. "value" attribute represents actual content to be initialized 
+           for PRIMITIVE TYPE OF DATA. 
+       
+NOTE: In XML File, It is Mandatory to maintain the order of arguments given in constructor
+      Which is declared in Java Class.
+
+       2. "index" attribute is used to represent index of argument in constructor. It is used
+           only if order of arguments is not maintained in XML File.
+
+       3. "ref" attribute represents reference variable name to be given 
+           for NON-PRIMITIVE DATA TYPE.
+
+NOTE: To List type in XML file, we make use of <list> tag and For Set type  in XML filr,
+      we make use of <set> tag.
+
+NOTE: within <list> tag and <set> tag, <value> tag is used to add multiple values.
+
+====================================================================================
+
+ii. Dependency Injection using getters and setters method:
+    --> Tag used to perform dependency injection using getters and setters method:s
+        is <property name="">
+    --> The important attributes used with <property> tag is:
+        1. "name" attribute represents variable name to which values has to be passed.
+        2. "value" attribute represents actual content to be initialized 
+           for PRIMITIVE TYPE OF DATA.
+
+    NOTE: Rest of the attributes is same as constructor's dependency injection.
+
+========================================================================
+
+Special Case: What happens if we perform dependency injection of constructor and Setters
+              methods for bean?
+
+Answer: __________________________________________________________.
+
+===================================================================================
+
+Conclusion:
+   Programmers prefer Setters dependency injection over constructor dependency injection. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

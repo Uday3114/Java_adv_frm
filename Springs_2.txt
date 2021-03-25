@@ -1,0 +1,101 @@
+Reason-1: Springs Framework provides Model-2 Architecture for developing web-apps.
+
+========================================================================
+Reason-2: Springs Frameworks avoids BoilerPlate Coding
+
+BoilerPlateCoding: Repeatatin of code to perform task is referred as BoilerPlate Coding.
+
+Example: JDBC-Concepts
+        -->Insert Data                  -->Modify Data
+           URL                             URL
+           Insert query                    update query
+           connection                      connection
+           Platform(stmp,pstmp,cstmp)      platform(stmp,pstmp,cstmp)
+           executeUpdate                   executeUpdate
+           close                           close
+
+        -->Remove Data                 --> Reterieve Data
+           URL                             URL
+           delete query                    select query
+           connection                      connection
+           platform(stmp,pstmp,cstmp)      platform(stmp,pstmp,cstmp)
+           executeUpdate                   executeQuery
+           close                           ResultSet
+                                           close
+
+URL, connection, close-------------> BoilerPlateCoding in JDBC
+
+-----------------------------------------------------------------------
+NOTE: SPRINGS FOLLOW "WRITE CODE ONCE AND USE IT FOR MULTIPLE TIMES".
+
+-----> Programmers will make use of XML Files and Annotations in order to follow 
+       Springs principle.
+
+======================================================================
+Conclusion:
+1. Model-2 Architecture.
+2. Avoid BoilerPlate Coding.
+
+=================================================================================
+
+In XML files, Group of Objects is referred as Beans. 
+              One Object is referred as Bean.
+
+===============================================================================
+Spring Containers: The Main Purpose  is "Carry Objects/Beans of XML File to Java Class".
+
+    XML File----->SpringContainers----->Class.
+
+NOTE: All Objects/beans will be Upcasted to Object type by SpringContainers.
+      Programmers have to downcast it to their respective types.
+
+->Spring Containers is of 2 Types:
+   i).  ApplicationContext interface
+   ii). BeanFactory interface.
+
+Syntax for ApplicationContext SpringContainer:
+
+1). ApplicationContext context = new ClassPathXmlApplicationContext(String XMlFileName);
+2). getBean("identifier") is used to fetch bean /object from ApplicationContext SpringContainer.
+
+======================================================================
+Steps to write spring program.
+1. Create an Project(java project).
+2. copy and paste spring core 2.0 jars as well as perform Java build path
+3. copy and paste XML File into src folder.
+4. write code in main() method along with SpringContainers.
+
+===================================================================
+
+tinyurl.com/springjarfiles
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

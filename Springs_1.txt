@@ -1,0 +1,70 @@
+Springs Framework is extension of Servlets Technology.
+
+Example: Preparing Tea.
+   Approach 1: In Home-->mum
+               (Milk, Sugar, Tea Leaves)------>Technology(50% Inbuilt Library+50% Programmers)
+
+   Approach 2: Tea Bags---------------------->Framework(80% Inbuilt Library+205 Programmers)
+
+NOTE: An Application can be developed by using Technologies and Frameworks.
+      But Using Frameworks, we can develop in Less Time. Hence, Frameworks are preferred.
+
+=====================================================================
+
+Drawbacks Of Servlets (OR) Need to Learn Spring Framework:
+1. Model-1 Architecture and Model-2 Architecture.
+
+ Example: Adding Two Numbers--------->one HTML File--->One Servlet Class
+          Subtracting Two Numbers---->another HTMl File-->Another Servlet Class
+
+Conclusion: One HTML file request is given to One ServletClass. This is 
+            referred as Model-1 Architcture.
+       ---> If we have 10-HTML Files, then 10-ServletClasses.
+
+Example: Registration Process------>Insert Query
+         Login Process------------->Select Query
+         Forgot Password Process--->Update Query
+       [According Model-1 Architecture, We Require 3-HTML files and 3-ServletClases]
+
+Drawback: Model-1 Architecture(Servlets) consumes more Memory as Number of file increases.
+          Hence, Performance of an Application decreases.
+-----------------------------------------------------------------------------
+
+Conclusion: Multiple HTML Files is given to one Spring class. This is 
+            referred as Model-2 Architecture.
+
+2-HTML Files------>1-SpringClass
+In add.html, <form action="m1">
+In sub.html, <form action="m2">
+
+class SpringClass
+{
+    + void m1()
+    {
+      //addition
+    }
+
+    + void m2()
+    {
+      //subtraction
+    }
+
+}
+
+Example: Registration Process------>Insert Query
+         Login Process------------->Select Query
+         Forgot Password Process--->Update Query
+      [According to Model-2 Architecture, 3-HTML Files and 1-Springclass
+       with 3-methods.]
+
+Advantage: In Model-2 Architecture(Springs), Memory occupied would be less.
+           hence, Performance of Application would be High
+===================================================================
+
+--> In Model-1 Architecture, As a <form action="">, we represent ServletClassName.
+--> In Model-2 Architecture, As s <form action="">, we represent One of the method name
+    present in Spring Class.
+=============================================================================
+
+REASON-1: Programmers prefer Spring Framework to develop Web-Application because of Model-2 Architecture.
+
