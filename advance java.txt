@@ -1,0 +1,3181 @@
+Java/J2EE
+
+16-10-2020
+
+Parts of advance java
+	1. JDBC- Java Database Connectivity 
+	2. Sevlets
+	3. JSP- Java Server Pages
+
+Topics required from core java
+	1. Abstraction [interface]
+	2. Exceptions [checked and unchecked]
+		If current method can hanndle situation then it uses try and catch otherwise throws is used.
+	3. User defined exception- programmer is creating his own exception  
+	4. Scanner class and loops- takes i/p from user
+	5. Collections- last preference
+
+Topics required from SQL 
+	1. DQL [select] 
+	2. DML [insert, update, delete] 
+Crud operations 
+
+Functionalities of compiler
+	1. Check the syntax.
+	2. Converting java code to byte code called as compilation if syntax is correct and gives class file.
+	3. Compiler assigns default values for global variables depending on datatype [int- 0, double- 0.0, char-, boolean- false, string- null].
+	4. Compiler assigns default constructor to the class.
+	5. Compiler calls super class constructor, super();
+	6. Compiler takes care of static/early/compile time binding.
+	7. Compiler imports java.lang package.
+	8. Compiler assigns "public", "static", "final" for variables inside interface and "public", "abstract" for methods in interface.
+	9. Compiler gives checkedException.
+	10. Compiler performs auto-boxing.
+	11. Compiler performs widening, upcasting.
+
+Functionalities of JVM
+	1. JVM converts byte code into binary code called as interpretection.
+	2. JVM calls class loader and garbageCollector.
+	3. JVM gives unchecked exception.
+	4. JVM is responsible for non-static/late/run time binding.
+	5. JVM allocates memory [object].
+
+Resume
+Good understanding of compiler and jvm
+  
+note
+Advance Java is used to develop webApplications which are accessed with the help of browsers.
+
+Fetures of webApplications
+JEE stands for 'Java Enterprise Edition' and '2' indicates its version.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+17-10-2020
+
+Perspective
+open perspective - java EE - project
+	Pg1BusinessLogic 
+		package org.jsp.app;
+		import java.util.Random;
+		public class Pg1BusinessLogic 
+		{
+		public static void generateOTP()
+		{
+			Random random= new Random();
+			int otp= random.nextInt(10000);
+			if(otp < 0)
+			{
+				otp= otp * -1;
+			}
+			if(otp < 1000)
+			{
+				otp= otp + 1000;
+			}
+			System.out.println(otp);
+		}
+		}
+	Pg2Mainclass
+		package org.jsp.app;
+		public class Pg2Mainclass 
+		{
+		public static void main(String[] args) 
+		{
+			Pg1BusinessLogic.generateOTP();
+		}
+		}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+19-10-2020
+
+The most comman features of an web application are
+	1. Sessions
+	2. MultiThreaded
+	3. LooseCoupling
+
+1. Sessions is the time interval given by programmer to the user to perform some task in the web application.
+2. MultiThreaded is the condition of an application where multiple users can access the application the web application at the same time.
+	example facebook
+The opposite behaviour of MultiThreaded is SingleThreaded, which means only one user can access the application the web application where other users have to wait.
+	example banking apps
+3. Adding new features to the application which does not affects the entire application is technically reffered as LooseCoupling.
+The opposite behaviour of LooseCoupling TightCoupling which means by adding new features to the application which affects the entire application.
+
+note:
+MultiThreaded and LooseCoupling are best features web application where as SingleThreaded and TightCoupling are worst features web application.
+Abstraction and JDBC results in LooseCoupling behaviour where as Servlets and JSP results in MultiThreaded and Sessions behaviour.
+
+	Pg1BusinessLogic 
+		package oct19;
+		import java.util.Random;
+		import java.util.Scanner;
+		public class Pg1BusinessLogic 
+		{
+		static int otp;
+		public static void generateOTP() 
+		{
+			Random random = new Random();
+			otp = random.nextInt(1000);
+			if(otp < 0)
+			{
+				otp = otp* -1; 
+			}
+			if(otp < 1000)
+			{ 
+				otp = otp + 1000;
+			} 
+			System.out.println("OTP is :"+otp);
+		}
+		public static void verifyOTP()
+		{
+			Scanner scanner = new Scanner(System.in);
+	    		System.out.println("Enter the otp");
+	   		int revOTP = scanner.nextInt();
+	    		if( otp == revOTP)
+	    		{
+	    			System.out.println("Otp is verified..");
+	    		}
+	    		else 
+	   	 	{
+	    			System.err.println("not valid");
+	    		}
+		}
+		} 
+	Pg2Mainclass	
+		package oct19;
+		public class Pg2Mainclass
+		{
+		public static void main(String[] args)
+	 	{
+			Pg1BusinessLogic.generateOTP();
+			Pg1BusinessLogic.verifyOTP();
+		}
+		}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+20-10-2020
+
+Steps to be followed for advance java program
+	1. Set the perspective to java EE using open perspective icon [right side top corner].
+	2. Create java project and click 'no' on the popup.
+	3. Create package under 'src' folder by following standards:
+		org/com(organisation/commertial) ---> company name ---> application name
+		org/com, example: com
+		company name, example: google
+		application name, example: gmail
+		package name: com.google.gmail [must be lower case]
+	4. Create class or interface.
+
+Jar files and Decompiler 
+Decompiler is an opposite process of compiler. Decompilation is a process of converting byte code to source code.
+FernFlower is an extension/plugin used in eclipse for decompilation.
+Jar files are the standards for sharing programs bet developers. To convert java program into Jar file, programmer have to follow below steps 
+	1. Right click on the project and select 'export' option.
+	2. Expand 'java' folder and select 'Jar file' option. Click on 'next'.
+	3. Browse the path where Jar file has to created, name the file and click on save option.
+	4. Click on 'finish'.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+21-10-2020
+
+Jar files can be used in the project as an external resource.
+Any external resource if it has to be accesseble in the project then programmer must perform 'JavaBuildPath'.
+Steps to be followed to perfrom JavaBuildPath are
+	1. Copy and paste the Jar file into the project.
+	2. Right click on the project and select 'properties' option.
+	3. Click on 'JavBuildPath' option and select 'AddJars' option.
+	4. Browse the appropriate project to which Jar file was pasted. Select Jar file which was pasted.
+	5. Click on 'ok' and 'apply and close'.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+22-10-2020
+
+API- Application Programming Interface
+IAC- Inter Application Communication
+IAC is done with the API. So the main purpose of API is sharing the data/information
+	example: sharing whats app status from w hats app to other application like fb
+
+JavaPerspective                   JavaEEPerspective 
+1. SuperClass                     1. HelperClass
+2. SubClass                       2. ImplementationClass                    
+3. Interface                      3. Interface
+4. Package                        4. API
+
+example: java.lang package of JavaPerspective is also considered as JavaAPI in JavaEEPerspective.
+       	 java.util package of JavaPerspective is also considered as UtilityAPI in JavaEEPerspective. 
+
+SuperClass- comman properties for all programs
+SubClass- special properties 
+Interface- collection of abstract classes
+Package- collection of classes and interface
+
+Drivers are the software components used for converting from 1 lang to another lang
+	example: keyboard drivers are used to convert NormalLanguage [alphabets, no, special symbols] into BinaryLanguage [1's, 0's]
+
+Conclusion
+	1. API is used for Inter Application Communication
+	2. Driver is used to convert 1 lang into another lang
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+23-10-2020
+
+JDBC Architecture
+
+Database- tables [rows and columns]- can understand only SQL
+
+Application
+	1. Front end- Web technology
+	2. Back end- Java 
+Application information will be stored in Database(DB)
+
+JDBC API will share the information of Application into DB 
+JDBC Diver converts Java language to SQL
+
+	Application ----------> JDBC API ----------> JDBC Drivers ----------> Database
+   [Front end- Web tech                  Java calls                SQL calls   [MySQL]
+    Back end- Java]
+
+None of the Applications have an ability to store users data, all Applications use 'Database' to store user's data 
+JDBC Architecture gives a plan to the programmers about 'how user's data has to be stored' in the Database from Java Application
+JDBC Architecture consist of 4 components
+	1. Java Application
+	2. JDBC API
+	3. JDBC Drivers
+	4. MySQL Database Application
+
+Java Application component consist of source code using which programmer can take user's data
+JDBC API is used to share user's data [IAC] from Java Application to MySQL DB Application
+JDBC Driver is used to convert Java calls into SQL calls, which can be understood by DB easily
+MySQL Database Application is used to store user's data in the form of tables having rows and columns
+
+note:
+In the above architecture, MySQL DB Application can be replaced with any other DB Application depending on companies requirement
+JDBC API corresponds to 'java.sql package'
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+28-10-2020
+
+create table cardinfo(card_number varchar(18), 
+                      cardHolderName varchar(14), 
+                      expiryDate varchar(7), 
+                      cvv int(4)) 
+
+Creating tables in SQLYog application
+	1. The smaller unit within the database is called as logical DB or 'Schema'. Programmers have to create tables within schema.
+	2. To create schema click on 'DB' option and select 'create database' option. Name the schema and click on 'create' button.
+	3. To create table within schema write 'create query' in query window. Run the query and refresh the schema.
+	4. To check the data of the table right click on table and select 'view data' option. 
+
+URL (Uniform Resource Locator)
+It is a basic information given to programmer for using the DB in our application/program 
+It consists of 4 parts
+	1. Protocol-    it is the set of rules which must be followed in order to communicate with the database.
+        	        it's use is 'jdbc:subprotocol', where subprotocol is the name of the DB currently in use.
+	2. HostInfo-    it is way of accessing the application.
+        	        we have 2 types in hostinfos
+                		1. Localhost- accessing the application which is present in client machine (laptop/pc).
+                		2. Remotehost- accessing the application with the help of server.
+                	note: for our classes we are following localhost
+	3. PortNumber-  it is the gate way for the DB for which data flows.
+        	        each DB is given with unique no. for interaction.
+	4. UserInfo-    it is the authentication for programmers to use the DB.
+        	        it consists of user and password.
+                	combination of Protocol, HostInfo, PortNumber, UserInfo
+                		syntax
+                		url:protocol://hostinfo:portnumber?userinfo
+
+examples
+Protocol- JDBC:MySQL
+HostInfo- localHost
+PortNumber- 3306/3307
+UserInfo- root 12345 
+so jdbc:mysql://localhost:3307?user=root&passward=12345
+
+Protocol- Oracle
+HostInfo- localHost
+PortNumber- 1521
+UserInfo- Scott tiger
+so jdbc:oracle://localhost:1521?user=scott&password=tiger
+
+Exceptons for url
+If fault is in protocol- No suitable driver 
+If fault is in hostinfo:portnumber- Communication link failure
+If fault is in userinfo- Access denied
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+29-10-2020
+
+For developing applications we have 2 approches
+	1. Without using inbuilt library
+	2. With using inbuilt library. 
+If inbuilt libraries are not used then margin of making errors would be more by programmers which inturn decreases performance with high time consumtion.
+Hence this approach is not preffered.
+If inbuilt libraries are used then margin of making errors would be less by programmers which inturn increases performance with high time consumtion.
+Hence this approach is preffered.
+
+note
+For JDBC programs, we use 'java.sql package' [JDBC-API] as an inbuilt library.
+
+We have 5 basic steps of JDBC to write the program
+	1. Establish the connection between Java application and DB application.
+	2. Create a platform.
+	3. Execute the data/SQL queries.
+	4. Process the resultant data [optional]
+	5. Close the connection.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+31-10-2020
+
+		package oct31;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.SQLException;
+		public class Pg1 
+		{
+		public static void main(String[] args) 
+		{
+			String url= "jdbc:mysql://localhost:3307?user=root&password=12345";
+			try 
+			{
+				Connection connection= DriverManager.getConnection(url);
+				System.out.println("step1");
+				connection.close();
+				System.out.println("step5");
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
+01-11-2020
+
+Step 1. Establish the connection between Java application and DB application.
+
+To establish the connection between Java application and DB application we have to use getConnection()
+getConnection() is a static and overloaded method having 3 variations 
+	1. public static Connection getConnection(String arg0)
+	2. public static Connection getConnection(String arg0, Properties arg1)
+	3. public static Connection getConnection(String arg0, String arg1, String arg2)
+getConnection() takes URL as an argument, throws 'SQL Exception' which is a checked exception, handled by using 'try-catch blocks'.
+getConnection() is present in 'java.sql.DriverManager' class. and its return type is 'connection' interface.
+	syntax  		
+	Connection connection= DriverManager.getConnection(String url);
+There are 3 types of errors in it
+	1. no suitable driver found 
+	2. port failure 
+	3. access denied
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+02-11-2020
+
+Step 2. Create a platform.
+
+In JDBC program we write Java code and SQL queries. 
+Java compiler does not have the ability to compile SQL queries hence programmer create platform to send SQL queries to DB.
+We have 3 types of platforms 
+	1. Statement type
+	2. PreparedStatement type
+	3. CallableStatement type
+If query is consist of hardcoded values then programmers prepare Statement type platforms.
+createStatement() method is used to work with Statement type platforms.
+	syntax
+	Statement statement= connection.createStatement();
+	where connection is a reference variable name of Connection type.
+	connection.createStatement(); is an inbuilt method.
+	statement is a reference variable name of Statement type.
+If queries consist of run time values then programmer prefers PreparedStatement type platforms.
+If queries consist of both hardcoded values  and run time values then programmer prefers CallableStatement type platforms.
+
+3. Execute the data/SQL queries.
+
+		package oct31;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.SQLException;
+		import java.sql.Statement;
+		public class Pg1 
+		{
+		public static void main(String[] args) 
+		{
+			String url= "jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query= "insert into advancejava.studentinfo values('16841A0', 'SJS', '4.37')";
+			try 
+			{
+				Connection connection= DriverManager.getConnection(url);
+				System.out.println("step1");
+				Statement statement= connection.createStatement();
+				System.out.println("step2");
+				statement.executeUpdate(query);
+				System.out.println("step3");
+				connection.close();
+				System.out.println("step5");
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		}
+
+write a JDBC program to change marks based on regnumber of student
+	update studentinfo set marks= where regNumber= 
+write a JDBC program to remove studentinfo based on regnumber of student
+ 	update studentinfo where regNumber= 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+03-11-2020
+
+3. Execute the data/SQL queries.
+
+Basically we have 2 types of operations with table data
+	1. Read operation executeQuery()
+	2. Write operation executeUpdate()
+The operation which can not modify the table data but table data can be retrieved is called as read operation.  
+The operation which can modify the table data but table data can not be retrieved is called as write operation.
+Read operation can be performed by using 'Select Query'.
+Write operation can be performed by using 'Insert Query, Update Query, Delete Query'.
+For execution of read operation, we have to use executeQuery().
+For execution of write operation, we have to use executeUpdate().
+	example
+	1. signup- write- [Insert Query]
+	2. signin- read- [Select Query]
+	3. checking given phone no is present in db or not- read- [Select Query]
+	4. view balance- read- [Select Query]
+	5. view statements- read- [Select Query]
+	6. withdrawl- read + write- [Select Query + Update Query]
+	7. deposites- write- [Update Query]
+	8. generate pin- read + write- [Select Query + Update Query]
+	9. forgot password- read + write- [Select Query + Update Query] 
+	10. deactivate my account- read + write- [Select Query + Delete Query]
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+04-11-2020
+
+4. Process the resultant data [optional]
+
+The data present in the table is called as Actual data.
+All the queries must be written in Java Application.
+All the queries will be sent to the DB using platform.
+Once after query reaches DB it undergoes compilation followed by execution of the queries.
+After execution we get resultant data and it will be assigned with 2 imp positions
+	1. Before First Record (BFR)
+	2. After Last Record (ALR)
+
+note:
+Resultant data concept is applicable only for read operation.
+
+'getters()' is used to retrieve resultant data from DB to Java Application.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+05-11-2020
+
+	for getting more records
+		package oct31;
+		import java.sql.Statement;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.ResultSet;
+		import java.sql.SQLException;
+		public class Pg2 
+		{
+		public static void main(String[] args) 
+		{
+			String url="jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query= "select*from advancejava.studentinfo where regNumber in('16841A0','sjs',4.27)";
+			try 
+			{
+				Connection connection= DriverManager.getConnection(url);		
+				System.out.println("step1");
+				Statement statement= connection.createStatement();
+				System.out.println("step2");
+				ResultSet resultSet= statement.executeQuery(query);
+				System.out.println("step3");
+				while(resultSet.next()) 
+				{
+					String rnum= resultSet.getString("regNumber");
+					String sname= resultSet.getString("studentName");
+					double mark= resultSet.getDouble("mark");
+					System.out.println(rnum+" "+sname+" "+mark);
+				}
+				System.out.println("step4");
+				connection.close();
+				System.out.println("step5");
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		}
+	for getting 1 record
+		package nov4;
+		import java.sql.Statement;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.ResultSet;
+		import java.sql.SQLException;
+		public class Pg1
+		{
+		public static void main(String[] args) 
+		{
+			String url="jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query= "select*from advancejava.studentinfo where regNumber='16841B0'";
+			try 
+			{
+				Connection connection= DriverManager.getConnection(url);		
+				System.out.println("step1");
+				Statement statement= connection.createStatement();
+				System.out.println("step2");
+				ResultSet resultSet= statement.executeQuery(query);
+				System.out.println("step3");
+				resultSet.next();
+				String rnum= resultSet.getString("regNumber");
+				String sname= resultSet.getString("studentName");
+				double mark= resultSet.getDouble("mark");
+				System.out.println(rnum+" "+sname+" "+mark);
+				System.out.println("step4");
+				connection.close();
+				System.out.println("step5");
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		}
+
+After assigning BFR position and ALR position to resultant data then DB will provide cursor for BFR position.
+As a programmer we have take care of 2-important tasks 
+	1. Moving the cursor from one position to immediate next position which is taken care by next()
+	2. Retriving data by using getters()
+
+note:
+next() and getters() methods are called by using 'java.sql.ResultantSet interface' reference variable name.
+ResultantSet interface is used for only read operation because read operation gives Resultant data, hence it is associated with executeQuery() method.
+next() returns true if resultant data is present, else it reurns false if resultant data is not present.
+
+5. Close the connection.
+
+Once after program execution is completed, it is necessary that programmers have to close the connection between Java Application and DB Application
+close() is used to close the connection between Java Application and DB Application
+	cooection.close();
+	where 'connection' is reference variable of Connection type.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+06-11-2020
+
+	wap to get odd records
+		package nov6;
+		import java.sql.Statement;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.ResultSet;
+		import java.sql.SQLException;
+		public class Pg1
+		{
+		public static void main(String[] args) 
+		{
+			String url="jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query= "select* from advancejava.studentinfo";
+			try 
+			{
+				Connection connection= DriverManager.getConnection(url);		
+				System.out.println("step1");
+				Statement statement= connection.createStatement();
+				System.out.println("step2");
+				ResultSet resultSet= statement.executeQuery(query);
+				System.out.println("step3");
+				while(resultSet.next()) 
+				{
+					String rnum= resultSet.getString("regNumber");
+					String sname= resultSet.getString("studentName");
+					double mark= resultSet.getDouble("mark");
+					System.out.println(rnum+" "+sname+" "+mark);
+					resultSet.next();
+				}
+				System.out.println("step4");
+				connection.close();
+				System.out.println("step5");
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		}
+	run time values inserting
+		package nov6;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.PreparedStatement;
+		import java.sql.SQLException;
+		import java.util.Scanner;
+		public class Pg3insertingRunTimeValue 
+		{
+		public static void main(String[] args) 
+		{
+			String url="jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query= "insert into advancejava.studentinfo values(?,?,?)";
+			try 
+			{
+				Connection connection= DriverManager.getConnection(url);
+				System.out.println("step1");
+				PreparedStatement preparedStatement= connection.prepareStatement(query);
+				System.out.println("step2");
+				Scanner scan= new Scanner(System.in);
+				System.out.println("enter the regNumber");
+				String rnum= scan.next(); 
+				preparedStatement.setString(1, rnum);
+				System.out.println("enter the studentName");
+				String sname= scan.next(); 
+				preparedStatement.setString(2, sname);
+				System.out.println("enter the mark");
+				double mark= scan.nextDouble(); 
+				preparedStatement.setDouble(3, mark);
+				preparedStatement.executeUpdate();
+				System.out.println("step3");
+				connection.close();
+				System.out.println("step5");
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		}
+			here ? in query is called as 'Placeholder'.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+07-11-2020
+
+		package nov7;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.PreparedStatement;
+		import java.sql.SQLException;
+		import java.util.Scanner;
+		public class Pg1 
+		{
+		public static void main(String[] args) 
+		{
+			String url="jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query= "insert into advancejava.userinfo values(?,?,?,?)";	
+			try 
+			{
+				Connection connection= DriverManager.getConnection(url);
+				PreparedStatement preparedStatement= connection.prepareStatement(query);
+				Scanner scanner= new Scanner(System.in);
+				System.out.println("enter name");
+				String uname= scanner.next();
+				preparedStatement.setString(1,uname);
+				System.out.println("enter phone number");
+				String uphone= scanner.next();
+				preparedStatement.setString(2,uphone);
+				System.out.println("enter email id");
+				String uemail= scanner.next();
+				preparedStatement.setString(3,uemail);
+				System.out.println("enter password");
+				String upass= scanner.next();
+				System.out.println("enter the confirmation");
+				String uconfirmpass= scanner.next();
+				if(upass.equals(uconfirmpass))
+				{
+					preparedStatement.setString(4,upass);
+					preparedStatement.executeUpdate();
+				}
+				else
+				{
+					System.err.println("password mismatch");
+				}
+				connection.close();
+				scanner.close();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}		
+		}
+		}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+09-11-2020
+
+PreparedStatement type Platform 
+	1. phoneNumber along with OTP
+	2. phoneNumber and passwords
+	3. phoneNumber/emailAddress and passwords 
+
+	1. phoneNumber along with OTP
+		package nov9;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.PreparedStatement;
+		import java.sql.ResultSet;
+		import java.sql.SQLException;
+		import java.util.Scanner;
+		public class Pg2otp 
+		{
+		public static void main(String[] args) 
+		{
+			String url="jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query= "select name from advancejava.userinfo where phoneNumber=?";
+			try 
+			{
+				Connection connection= DriverManager.getConnection(url);
+				PreparedStatement preparedStatement= connection.prepareStatement(query);
+				Scanner scanner= new Scanner(System.in);
+				System.out.println("enter phone number");
+				String phnum= scanner.next();
+				preparedStatement.setString(1, phnum);
+				Pg2otpgeneration.generateOTP();
+				Pg2otpgeneration.verifyOTP();
+				ResultSet resultSet= preparedStatement.executeQuery();
+				if(resultSet.next())
+				{
+					String uname= resultSet.getString("name");
+					System.out.println("welcome "+uname);
+				}
+				else
+				{
+					System.out.println("login failed");
+				}
+				connection.close();
+				scanner.close();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		}
+	otp generation
+		package nov9;
+		import java.util.Random;
+		import java.util.Scanner;
+		public class Pg2otpgeneration 
+		{
+		static int otp;
+		public static void generateOTP()
+		{
+			Random random= new Random();
+			otp= random.nextInt(1000);
+			if(otp<0)
+			{
+				otp= otp*(-1);
+			}
+			if(otp<1000)
+			{
+				otp= otp+1000;
+			}
+			System.out.println("otp is: "+otp);	
+		}
+		public static void verifyOTP()
+		{
+			Scanner scanner= new Scanner(System.in);
+			System.out.println("enter the otp to verify");
+			int revOTP= scanner.nextInt();
+			if(otp==revOTP)
+			{
+				System.out.println("otp is verified");
+			}
+			else
+			{
+				System.err.println("wrong otp");
+			}
+		}
+		}
+	2. phoneNumber and passwords
+		package nov9;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.PreparedStatement;
+		import java.sql.ResultSet;
+		import java.sql.SQLException;
+		import java.util.Scanner;
+		public class Pg1login 
+		{
+		public static void main(String[] args) 
+		{
+			String url="jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query= "select name from advancejava.userinfo where phoneNumber=? and passwords=?";
+			try 
+			{
+				Connection connection= DriverManager.getConnection(url);
+				PreparedStatement preparedStatement= connection.prepareStatement(query);
+				Scanner scanner= new Scanner(System.in);
+				System.out.println("enter phone number");
+				String phnum= scanner.next();
+				preparedStatement.setString(1, phnum);
+				System.out.println("enter the password");
+				String pass= scanner.next();
+				preparedStatement.setString(2, pass);
+				ResultSet resultSet= preparedStatement.executeQuery();
+				if(resultSet.next())
+				{
+					String uname= resultSet.getString("name");
+					System.out.println("welcome "+uname);
+				}
+				else
+				{
+					System.out.println("login failed");
+				}
+				connection.close();
+				scanner.close();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		}
+	3. phoneNumber/emailAddress and passwords 
+		package nov9;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.PreparedStatement;
+		import java.sql.ResultSet;
+		import java.sql.SQLException;
+		import java.util.Scanner;
+		public class Pg3mailOrPhnum
+		{
+		public static void main(String[] args) 
+		{
+			String url="jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query= "select name from advancejava.userinfo where phoneNumber or emailAddress=? and passwords=?";
+			try 
+			{
+				Connection connection= DriverManager.getConnection(url);
+				PreparedStatement preparedStatement= connection.prepareStatement(query);
+				Scanner scanner= new Scanner(System.in);
+				System.out.println("enter phone number or mail id");
+				String phnumOrMail= scanner.next();
+				preparedStatement.setString(1, phnumOrMail);
+				System.out.println("enter the password");
+				String pass= scanner.next();
+				preparedStatement.setString(2, pass);
+				ResultSet resultSet= preparedStatement.executeQuery();
+				if(resultSet.next())
+				{
+					String uname= resultSet.getString("name");
+					System.out.println("welcome "+uname);
+				}
+				else
+				{
+					System.out.println("login failed");
+				}
+				connection.close();
+				scanner.close();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		}
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+10-11-2020
+
+PreparedStatement type platform 
+Programs prefer PreparedStatement platform to pass runtime values in queries.
+To pass runtime values we use 'placeholders[?]'.
+For placeholders in queries, we pass values by using 'Setters Method'.
+Setters Method take 2 arguments
+	1. PlaceHolders position in the query.
+	2. Actual value to be passed.
+prepareStatement() method is an inbuilt method used to work with PreparedStatement type platform.
+As an argument we pass query.
+	syntax
+	PreparedStatement preparedStatement= connection.prepareStatement(query);
+While working with this platform we pass query in step-2 where as we pass query in step-3 for Stetement type platform.
+Programmers will pass the values to the placeholders before execution of query [step-3] and after creation of platform [step-2].
+
+	buisness class
+		package nov10;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.PreparedStatement;
+		import java.sql.ResultSet;
+		import java.sql.SQLException;
+		import java.util.Scanner;
+		public class Pg2LogicClass 
+		{
+		public static void option1() 
+		{
+			String url = "jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query = "insert into advancejava.bookinfo values (?,?,?,?,?)";
+			try 
+			{
+				Scanner scanner = new Scanner(System.in);
+				Connection connection = DriverManager.getConnection(url);
+				PreparedStatement preparedStatement = connection.prepareStatement(query);
+				System.out.println("Enter the Book Title");
+				String title = scanner.next();
+				preparedStatement.setString(1, title);
+				System.out.println("Enter the Book Author Name");
+				String author = scanner.next();
+				preparedStatement.setString(2, author);
+				System.out.println("Enter the Book Edition");
+				String edition = scanner.next();
+				preparedStatement.setString(3, edition);
+				System.out.println("Enter the Book Price");
+				int price = scanner.nextInt();
+				preparedStatement.setInt(4, price);
+				System.out.println("Enter the Book Type");
+				String type = scanner.next();
+				preparedStatement.setString(5, type);
+				int resultSet = preparedStatement.executeUpdate();
+				connection.close();
+				scanner.close();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		public static void option2() 
+		{
+			String url = "jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query = " select bookinfo.* from advancejava.bookinfo where BookTitle=?";
+			try 
+			{
+				Scanner scanner = new Scanner(System.in);
+				Connection connection = DriverManager.getConnection(url);
+				PreparedStatement preparedStatement = connection.prepareStatement(query);
+				System.out.println("Enter the Book Title");
+				String title = scanner.next();
+				preparedStatement.setString(1, title);
+				ResultSet resultSet = preparedStatement.executeQuery();
+				if (resultSet.next()) 
+				{
+					String tit = resultSet.getString("BookTitle");
+					String auth = resultSet.getString("BookAuthor");
+					String editi = resultSet.getString("Edition");
+					String pri = resultSet.getString("BookPrice");
+					String typ = resultSet.getString("BookType");
+					System.out.println("BookTitle  : "+tit);
+					System.out.println("BookAuthor : "+auth);
+					System.out.println("Edition    : "+editi);
+					System.out.println("Price      : "+pri);
+					System.out.println("BookType   : "+typ);
+				} 
+				else 
+				{
+					System.out.println("Retry with correct details");
+				}
+				connection.close();
+				scanner.close();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		public static void option3() 
+		{
+			String url = "jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query = " update advancejava.bookinfo set values (?,?,?,?) where BookTitle=?";
+			try 
+			{
+				Scanner scanner = new Scanner(System.in);
+				Connection connection = DriverManager.getConnection(url);
+				PreparedStatement preparedStatement = connection.prepareStatement(query);
+				System.out.println("Enter the Book Author Name");
+				String author = scanner.next();
+				preparedStatement.setString(1, author);
+				System.out.println("Enter the Book Edition");
+				String edition = scanner.next();
+				preparedStatement.setString(2, edition);
+				System.out.println("Enter the Book Price");
+				String price = scanner.next();
+				preparedStatement.setString(3, price);				
+				System.out.println("Enter the Book Type");
+				String typ = scanner.next();
+				preparedStatement.setString(4,typ);			
+				System.out.println("Enter the Book Title");
+				String title = scanner.next();
+				preparedStatement.setString(5, title);
+				int res = preparedStatement.executeUpdate(query);
+				connection.close();
+				scanner.close();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		public static void option4() 
+		{
+			String url = "jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query = "delete from advancejava.bookinfo where BookTitle=?";
+			try 
+			{
+				Scanner scanner = new Scanner(System.in);
+				Connection connection = DriverManager.getConnection(url);
+				PreparedStatement preparedStatement = connection.prepareStatement(query);	
+				System.out.println("Enter the Book Title");
+				String title = scanner.next();
+				preparedStatement.setString(1, title);
+				int res = preparedStatement.executeUpdate();
+				connection.close();
+				scanner.close();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+	}
+	main class
+		package nov10;
+		import java.util.Scanner;
+		public class Pg1mainClass 
+		{
+		public static void main(String[] args) 
+		{
+			Scanner scanner = new Scanner(System.in);
+			System.out.println("Enter 1 To Add Book");
+			System.out.println("Enter 2 To Search Book by Title");
+			System.out.println("Enter 3 To Update Book");
+			System.out.println("Enter 4 To Remove Book");
+			System.out.println("Enter the Value");
+			int a= scanner.nextInt();
+			if(a==1) 
+			{
+				Pg2LogicClass.option1();
+			} 
+			else if(a==2)
+			{
+				Pg2LogicClass.option2();
+			}
+			else if(a==3)
+			{
+				Pg2LogicClass.option3();
+			}
+			else if(a==4)
+			{
+				Pg2LogicClass.option4();
+			}
+			else 
+			{
+				System.out.println("Enter the valid input");
+			}
+			System.out.println("Do you want to continue??(y/n)");
+			char ch = scanner.next().charAt(0);
+			if(ch=='Y'||ch=='y')
+			{
+				main(args);
+			}
+			else
+			{
+				 System.exit(0);
+			}
+			scanner.close();
+		}
+		}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+11-11-2020
+
+	using 2 queries and updating marks
+		package nov11;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.PreparedStatement;
+		import java.sql.ResultSet;
+		import java.sql.SQLException;
+		import java.util.Scanner;
+		public class Pg1query 
+		{
+		public static void main(String[] args) 
+		{
+			String url="jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query1= "select* from advancejava.studentinfo where regNumber=?";
+			try 
+			{
+				Connection connection= DriverManager.getConnection(url);		
+				PreparedStatement preparedStatement = connection.prepareStatement(query1);
+				Scanner scanner = new Scanner(System.in);
+				System.out.println("Enter regNumber");
+				String rnum= scanner.next();
+				preparedStatement.setString(1, rnum);
+				ResultSet resultSet= preparedStatement.executeQuery();
+				if(resultSet.next()) 
+				{
+					String query2= "update advancejava.studentinfo set mark=? where regNumber=?";
+					System.out.println("Enter new marks");
+					double newMarks= scanner.nextDouble();
+					PreparedStatement preparedStatement2 = connection.prepareStatement(query2);
+					preparedStatement2.setDouble(1,newMarks);
+					preparedStatement2.setString(2,rnum);
+					preparedStatement2.executeUpdate();
+					System.out.println("Marks updated");
+				}
+				else
+				{
+					System.out.println("Given regNumber is invalid");
+				}
+				connection.close();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+12-11-2020
+
+		package nov10;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.PreparedStatement;
+		import java.sql.ResultSet;
+		import java.sql.SQLException;
+		import java.util.Scanner;
+		public class Pg2query 
+		{
+		public static void main(String[] args) 
+		{
+			String url= "jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query1= "select * from advancejava.registration where phoneNumber=?";
+			try 
+			{
+				Connection connection= DriverManager.getConnection(url);
+				PreparedStatement preparedStatement1= connection.prepareStatement(query1);
+				Scanner scanner= new Scanner(System.in);
+				System.out.println("Enter the Name:");
+				String uname= scanner.next();
+				System.out.println("Enter the Phone Number");
+				String uphone= scanner.next();
+				System.out.println("Enter Mail Id");
+				String umail= scanner.next();
+				System.out.println("Enter Psswaord");
+				String upass= scanner.next();
+				System.out.println("Confirm the Password");
+				String confirm= scanner.next();
+				preparedStatement1.setString(1, uphone);
+				ResultSet resultSet= preparedStatement1.executeQuery();
+				if (resultSet.next()) 
+				{
+					System.err.println("phoneNumber already exists, associated details are:");
+					String dbname= resultSet.getString("name");
+					String dbphone= resultSet.getString("phoneNumber");
+					String dbmail= resultSet.getString("emailId");
+					String dbpass= resultSet.getString("password");
+					System.out.println("Username    : " + dbname);
+					System.out.println("MailId      : " + dbmail);
+					System.out.println("PhoneNumber : " + dbphone);
+					System.out.println("Password    : *** " + dbpass.charAt(dbpass.length()-1));
+				} 
+				else 
+				{
+					String query2= "insert into advancejava.registration values (?,?,?,?)";
+					PreparedStatement preparedStatement2= connection.prepareStatement(query2);
+					preparedStatement2.setString(1, uname);
+					preparedStatement2.setString(2, uphone);
+					preparedStatement2.setString(3, umail);
+					if(upass.equals(confirm))
+					{
+						preparedStatement2.setString(4, upass);
+						preparedStatement2.executeUpdate();
+						System.out.println("Registration is succesful");
+					}
+					else
+					{
+						System.err.println("Password missmatch");
+					}
+				}
+				connection.close();
+			}
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		} 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+13-11-2020
+
+	ActConnectionPortal 
+		package nov13;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.PreparedStatement;
+		import java.sql.SQLException;
+		import java.util.Scanner;
+		public class Pg1query 
+		{
+		public static void main(String[] args) 
+		{
+			String url="jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query= "insert into advancejava.actconnection values(?,?,?,?,?,?,?)";
+			try 
+			{
+				Connection connection= DriverManager.getConnection(url);
+				PreparedStatement preparedStatement = connection.prepareStatement(query);
+				Scanner scanner= new Scanner(System.in);
+				System.out.println("Enter customerName");
+				String uname= scanner.next();
+				preparedStatement.setString(1, uname);
+				System.out.println("Enter customerPhone");
+				String uPhone= scanner.next();	
+				preparedStatement.setString(2, uPhone);
+				System.out.println("Enter customerMailID");
+				String umail= scanner.next();			
+				preparedStatement.setString(3, umail);
+				System.out.println("Enter typeOfBroadBand (Pre/Post)");
+				String uType= scanner.next();	
+				preparedStatement.setString(4, uType);
+				System.out.println("Enter schemeName (Local/STD/TalkTime)");
+				String uScheme= scanner.next();	
+				preparedStatement.setString(5, uScheme);
+				System.out.println("Enter connectionDuration");
+				int uDuration= scanner.nextInt();
+				preparedStatement.setInt(6, uDuration);			
+				double totalRentalCost= monthlyCost(uType, uScheme, uDuration);	
+				System.out.println("totalRentalCost");
+				preparedStatement.setDouble(7, totalRentalCost);	
+				preparedStatement.executeUpdate();
+				connection.close();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}		
+		}
+		public static double monthlyCost(String typeOfBroadBand, String schemeName, int connectionDuration)
+		{
+		double totalCost= 0.0;
+		switch(typeOfBroadBand)
+		{
+			case "Pre":
+			switch(schemeName)
+			{
+				case "Local": totalCost= (connectionDuration*200)+75;
+				break;
+				case "STD": totalCost= (connectionDuration*350)+75;
+				break;
+				case "TalkTime": totalCost= (connectionDuration*500)+75;
+				break;
+			}
+			break;
+			case "Post":
+			switch(schemeName)
+			{
+				case "Local": totalCost= (connectionDuration*200)+150;
+				break;
+				case "STD": totalCost= (connectionDuration*350)+150;
+				break;
+				case "TalkTime": totalCost= (connectionDuration*500)+150;
+				break;
+			}
+			break;
+		}
+		return totalCost;
+		}
+		}
+
+Stored Procedures
+These are the sub-routine (concept) where programmers can write any queries and only compile it but not execute it.
+Exceution of stored procedures is taken from Java Application.
+The steps followed to work with stored procedures are
+	1. Right click on 'Stored Proc' folder under schema name and select 'create stored procedure' option.
+	2. Name the procedure.
+	3. Write necessary queries between BEGIN and END keywords separated by semicolon.
+	4. Compile the procedure by clicking on 'execute all queries'[beside debug] option.
+	5. Exceute the procedure from Java code.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+14-11-2020
+
+	MySQL the stored procedure
+		DELIMITER $$;
+		DROP PROCEDURE IF EXISTS `advancejava`.`userinfo`$$
+		CREATE PROCEDURE `advancejava`.`userinfo` ()
+		BEGIN
+		insert into userinfo values('mjs',422,'mjsarnaik','2212');
+		END$$
+		DELIMITER ;$$
+	Ecilipse
+		package nov14;
+		import java.sql.CallableStatement;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.SQLException;
+		public class Pg1 
+		{
+		public static void main(String[] args) 
+		{
+			String url="jdbc:mysql://localhost:3307?user=root&password=12345";
+			String invokeSP= "{call advancejava.userinfo()}";
+			try 
+			{
+				Connection connection = DriverManager.getConnection(url);
+				System.out.println("step-1");
+				CallableStatement callableStatement= connection.prepareCall(invokeSP);
+				System.out.println("step-2");
+				callableStatement.executeUpdate();
+				System.out.println("step-3");
+				connection.close();
+				System.out.println("step-5");
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		}
+For run time values in the SySQL
+	MySQL
+		DELIMITER $$;
+		DROP PROCEDURE IF EXISTS `advancejava`.`student`$$
+		CREATE PROCEDURE `advancejava`.`student` (rn varchar(20), sn varchar(20), mks double)
+		BEGIN
+		insert into studentinfo values(rn,sn,mks);
+		END$$
+		DELIMITER ;$$
+	Ecilipse
+		package nov14;
+		import java.sql.CallableStatement;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.SQLException;
+		import java.util.Scanner;
+		public class Pg2 
+		{
+		public static void main(String[] args) 
+		{
+			String url="jdbc:mysql://localhost:3307?user=root&password=12345";
+			String invokeSP= "{call advancejava.student(?,?,?)}";
+			try
+			{
+				Connection connection= DriverManager.getConnection(url);
+				CallableStatement callableStatement= connection.prepareCall(invokeSP);
+				Scanner scanner= new Scanner(System.in);
+				System.out.println("Enter regNumber");
+				String rnum= scanner.next();
+				callableStatement.setString(1, rnum);
+				System.out.println("Enter name");
+				String sname= scanner.next();
+				callableStatement.setString(2, sname);
+				System.out.println("Enter marks");
+				String marks= scanner.next();
+				callableStatement.setString(3, marks);
+				callableStatement.executeUpdate();
+				connection.close();
+				scanner.close();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+17-11-2020
+
+CallableStatement type Platform
+CallableStatement is an interface present in java.sql package which is basically used to work with 'Stored Procedures'.
+'PrepareCall()' is an inbuilt method used to work with CallableStatement type Platform.
+	syntax 
+	CallableStatement callableStatement= connection.PrepareCall(String callSP)
+	where
+	CallableStatement- interface
+	callableStatement- referemce variable name of CallableStatement type
+	connection- reference variable name of connection type
+	PrepareCall()- inbuilt method used for working
+	String callSP- calling Stored Procedures
+The syntax used to call Stored Procedure from Java application is 
+	"{call schemaName..StoredProcedureName(no args/args)}"
+Stored Procedures without arguments is preferred to work with HardCoded values where as Stored Procedures with arguments is preferred to work with Runtime values.
+The syntax used to declare in Stored Procedure is
+	varName Datatype(length)
+	(length) should be given if Datatype is given as varchar
+
+	wap with hiding user, passwords
+		package nov17;
+		import java.io.FileReader;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.util.Properties;
+		public class Pg1 
+		{
+		public static void main(String[] args) 
+		{
+			String url="jdbc:mysql://localhost:3307";
+			try 
+			{
+				FileReader reader= new FileReader("dbinfo.props");
+				Properties properties= new Properties();
+				properties.load(reader);
+				String s1= properties.getProperty("user");
+				System.out.println(s1);
+				String s2= properties.getProperty("password");
+				System.out.println(s2);
+				Connection connection = DriverManager.getConnection(url,s1,s2);
+				System.out.println("step-1");
+				connection.close();
+				System.out.println("step-5");
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		}
+	or
+		package nov17;
+		import java.io.FileReader;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.util.Properties;
+		public class Pg2 
+		{
+		public static void main(String[] args) 
+		{
+			String url="jdbc:mysql://localhost:3307";
+			try 
+			{
+				FileReader reader= new FileReader("dbinfo.props");
+				Properties properties= new Properties();
+				properties.load(reader);
+				Connection connection = DriverManager.getConnection(url,properties);
+				System.out.println("step-1");
+				connection.close();
+				System.out.println("step-5");
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		}
+	here db.props is a file creted in the project which is like
+		user=root
+		password=12345
+
+Working with Properties file
+FileReader is a class present in java.io package which helps programmer in reading the data from file to java class.
+It throws a checked exception by name 'FileNotFoundException', which must be handled using try-catch blocks.
+We create Properties type object within Java class to store the data coming from file.
+load() is basically used for pushing the data from file to object.
+getProperty() is used to read particular value from Properties type object.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+18-11-2020
+
+Servlets
+Programmers prefer servlets for 2 imp reasons.
+	1. MultiThreaded
+	2. Sessions
+To start coding in servlets, programmer should have prior knowledge of HTML and Java
+Basically Servlets combine HTML [Front End] and Java [Back End].
+
+Deployment
+The process of giving the application to the server is called as deployment.
+Deployment is performed after development of an application.
+There are 2 types of deployment
+	1. Manual Deployment
+	2. Automated Deployment
+In Manual Deployment, 
+	programmers are responsible for 'Writing the code for application' as well as 'Giving the application to the server'.
+In Automated Deployment, 
+	programmers are only responsible for 'Writing the code for application' where as deployment is performed on behalf of us by using ANT, MAVEN tool etc.
+
+JEE Container (imp for interview)
+JEE container is an imp component within server which manages many files present in the application.
+Some of the imp functionalities of JEE Container are
+	1. After deployment, JEE Conatiner Seggregate/separate files based on extensions which results in faster response.
+	2. After seggregation of files users can make request and JEE Container will give response which is technically called as 'processing user's request'.
+	3. JEE Container will manage servlet life cycle.
+	4. JEE Container creates Config Object and Context Object.
+	5. JEE Container takes care of Servlet chaining.
+	
+Development--> Deployment--> JEE Container seggregate--> User Request--> JEE Container response [all these things takes place inside the server].
+
+                                               -----------------------------------------------------
+                                               | -------------               -------------------   |
+FrontEnd [HTML]---------------->Development--->| |JEE        |               |Servlet container|   |                        
+BackEnd[Java]                                  | |Container  |               -------------------   |
+                                               | -------------                                     |
+                                               |                             ---------------       |
+                                               | -------------               |JSP Container|       |
+      ------------------------->Request------->| |RPC        |               ---------------       |
+Users                                          | |Request    |               ----------------      |  
+      <-------------------------Response<------| |Processing |               |HTML Container|      | 
+                                               | |Component  |               ----------------      |
+                                               | -------------                                     |
+                                               -----------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+24-11-2020
+
+Throwable- 
+	java.lang package
+	supermost class of all exceptions
+Throws-
+	its a keyword
+	used in checked exception
+	used for exception propogation
+	used in method signature
+Throw-
+	its a keyword
+	used for exception propogation
+	it is user defined or custom defined 
+	used in method implementation
+
+	wap to declare and inetialize one variable of of integer type with 3 classes
+	case 1- negative number
+	case 2- zero
+	case 3- positive number
+	negative number
+		package nov24;
+		class NumberNegativeException extends Throwable
+		{
+		public NumberNegativeException()
+		{
+			System.err.println("Number can not be Negative");;
+		}
+		}
+	zero
+		package nov24;
+		class NumberZeroException  extends Throwable
+		{
+		public NumberZeroException()
+		{
+			System.err.println("Number can not be Zero");;
+		}
+		}
+	positive number or main class
+		package nov24;
+		import java.util.Scanner;
+		public class MainClass 
+		{
+		public static void main(String[] args) throws NumberZeroException, NumberNegativeException 
+		{
+			Scanner scanner= new Scanner(System.in);
+			System.out.println("Enter the Number");
+			int num= scanner.nextInt();
+			if(num<0)
+			{
+				throw new NumberNegativeException(); 
+			}
+			else if(num==0)
+			{
+				throw new NumberZeroException();
+			}
+			else
+			{
+				System.out.println(num);
+			}
+		}
+		}	
+	or
+	negative number
+		package nov24;
+		class NumberNegativeException extends Throwable
+		{
+		public String toString()
+		{
+			return "Number can not be Negative";
+		}
+		}
+	zero
+		package nov24;
+		class NumberZeroException extends Throwable
+		{
+		public String toString()
+		{
+			return "Number can not be Zero";
+		}
+		}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+25-11-2020
+
+Types of project
+1st step in developing the application is creating a project depending on the requirement.
+We have 2 imp types of project which can be created in Eclipse
+	1. Java project- If developing application involves only Back End then programers prefer Java project creation.
+	2. Dynamic web project- If developing application involves both Front as well as Back End then programers prefer Dynamic web project.
+Few imp folders in Dynamic web project are
+	1. src folder- used to write Back End code.
+	2. WebContent folder- used for writing Front End code.
+	3. lib folder- used to paste Jar files needed for the application. The advantage is, it is not necessary to perform Java build path.
+
+Types of classes
+The basic types of classes are 
+	1. Normal class- A class is said to be Normal class only if execution of the class starts from main method.
+	2. Servlet class- A class is said to be Servlet class only if execution of the class starts from HTML file/User's request.
+We have 2 tpes of Servlet classes
+	1. GenericServlet
+	2. HttpServlet
+	The main difference between these 2 is, GenericServlet does not support sessions where as HttpServlet supports sessions.
+	The comman factors between these 2 are, MultiThreaded and execution starts from HTML files/User's request.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+26-11-2020
+
+GenericServlet
+To link HTML and Servlet class we have to use 
+	<form action="BackEndClassName"> in front end class 
+	and '@WebServlet(BackEndClassName)' in back end class above the class name
+Annotation- @- are of 3 tpyes as 
+	1. Method level Annotations
+	2. Class level Annotations
+	3. Variable level Annotations
+
+	wap to generate otp
+	Back End 
+		package nov26;
+		import java.io.IOException;
+		import java.util.Random;
+		import javax.servlet.GenericServlet;
+		import javax.servlet.ServletException;
+		import javax.servlet.ServletRequest;
+		import javax.servlet.ServletResponse;
+		import javax.servlet.annotation.WebServlet;
+		@WebServlet("/Pg1BackEndCodeGenerateOTP")
+		public class Pg1BackEndCodeGenerateOTP extends GenericServlet
+		{
+		@Override
+		public void service(ServletRequest arg0, ServletResponse arg1) throws ServletException, IOException 
+		{
+			// TODO Auto-generated method stub
+			Random random= new Random();
+			int otp= random.nextInt(10000);
+			if(otp<0)
+			{
+				otp=otp*-1;
+			}
+			if(otp<1000)
+			{
+				otp=otp+1000;
+			}
+			System.out.println("OTP is: "+otp);
+		}
+		}
+	Front End
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action="Pg1BackEndCodeGenerateOTP">
+		<input type="submit" value="GenerateOTP"></input>
+		</form>
+		</body>
+		</html>
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+27-11-2020
+
+GenericServlet does not support sessions.
+GenericServlet is an abstract class contains 1 abstract method by name service.
+GenericServlet (abstract class) is present in javax.servlet package.
+
+note:
+To start the programming with Servlet class programmers must make use of 'servletapi.jarfile' which is present in TomCat installation directory in C drive.
+	syntax for GenericServlet 
+	@WebServlet("/Identifier")
+	+ class className extends GenericServlet
+	{
+		+ void service(ServletRequest arg0, ServletResponse arg1) throws ServletException, IOException 
+		{.....}
+		}
+	}
+
+Basic 3 steps involved in Servlet programming are
+	1. Create Servlet class within src folder of the project.
+	2. Create HTML file within WebContent folder of the project.
+	3. Link the HTML file and Servlet class.
+		[To link HTML file and Servlet class programmers have to follow given rules (very imp)
+		1. Declare '@WebServlet' annotation above the Servlet class along with Relative Path. 
+		(Relative Path always starts with '/' followed by Servlet className.)
+		2. Declare <form> along with action atribute () in the HTML file, for action atribute programmers have to provide Servlet className. 
+		(Which has to get executed once after user makes the request.)]
+
+	wap to generate date and time 
+	Back End
+		package nov27;
+		import java.io.IOException;
+		import java.text.SimpleDateFormat;
+		import java.util.Date;
+		import javax.servlet.GenericServlet;
+		import javax.servlet.ServletException;
+		import javax.servlet.ServletRequest;
+		import javax.servlet.ServletResponse;
+		import javax.servlet.annotation.WebServlet;
+		@WebServlet("/Pg1GenerateDateNTime")
+		public class Pg1GenerateDateNTime extends GenericServlet
+		{
+		@Override
+		public void service(ServletRequest arg0, ServletResponse arg1) throws ServletException, IOException 
+		{
+			// TODO Auto-generated method stub
+			Date date= new Date();
+			SimpleDateFormat dateformat = new SimpleDateFormat("DD dd-MMM-yyyy hh:mm:ss");
+			System.out.println(dateformat.format(date));
+		}
+		}
+	Front End
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action="Pg1GenerateDateNTime">
+		<input type="submit" value="GenerateDateNTime"></input>
+		</form>
+		</body>
+		</html>	
+
+Servlet class----> Console, using System.out.println
+Servlet class----> Database, using JDBC
+Servlet class----> Browser, using PrintWriter
+
+PrintWriter class present in java.io package helps programmer in printing the output on to the browser.
+The helper method used to create and return PrintWriter class object is getWritter();
+println is used to display the contents on to the browser, it is an example of Polymorphism because it displays the output on to the console as well as on browser. 
+	
+	wap to generate date and time 
+	Back End
+		package nov27;
+		import java.io.IOException;
+		import java.text.SimpleDateFormat;
+		import java.util.Date;
+		import javax.servlet.GenericServlet;
+		import javax.servlet.ServletException;
+		import javax.servlet.ServletRequest;
+		import javax.servlet.ServletResponse;
+		import javax.servlet.annotation.WebServlet;
+		@WebServlet("/Pg1GenerateDateNTime")
+		public class Pg1GenerateDateNTime extends GenericServlet
+		{
+		@Override
+		public void service(ServletRequest arg0, ServletResponse arg1) throws ServletException, IOException 
+		{
+		@Override
+		public void service(ServletRequest arg0, ServletResponse arg1) throws ServletException, IOException 
+		{
+			// TODO Auto-generated method stub
+			Date date= new Date();
+			SimpleDateFormat dateformat= new SimpleDateFormat("DD dd-MMM-yyyy hh:mm:ss");
+			System.out.println(dateformat.format(date));
+			PrintWriter printWriter= resp.getWriter();
+			printWriter.println("Today's date is: "+date);
+		}
+		}
+
+	Front End
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action="Pg1GenerateDateNTime">
+		<input type="submit" value="GenerateDateNTime"></input>
+		</form>
+		</body>
+		</html>	
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+28-11-2020
+
+	wap to get login details as mail and passwaord
+	Back End
+		package nov28;
+		import java.io.IOException;
+		import javax.servlet.GenericServlet;
+		import javax.servlet.ServletException;
+		import javax.servlet.ServletRequest;
+		import javax.servlet.ServletResponse;
+		import javax.servlet.annotation.WebServlet;
+		@WebServlet("/Pg1LoginCode")
+		public class Pg1LoginCode extends GenericServlet
+		{
+		@Override
+		public void service(ServletRequest req, ServletResponse resp) throws ServletException, IOException 
+		{
+			// TODO Auto-generated method stub
+			String uEmail= req.getParameter("em");
+			String uPassword= req.getParameter("pwd");
+			System.out.println(uEmail+" "+uPassword);
+		}
+		}
+	Front End
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action="Pg1LoginCode">
+		<label>MailId</label><input name="em"></input>
+		<br><br>
+		<label>Password</label><input name="pwd"></input>
+		<br><br>
+		<input type="submit" value="Login"></input>
+		</form>
+		</body>
+		</html>	
+	wap to generate otp
+	Back End
+		package nov26;
+		import java.io.IOException;
+		import java.io.PrintWriter;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.PreparedStatement;
+		import java.sql.ResultSet;
+		import java.sql.SQLException;
+		import java.util.Random;
+		import javax.servlet.GenericServlet;
+		import javax.servlet.ServletException;
+		import javax.servlet.ServletRequest;
+		import javax.servlet.ServletResponse;
+		import javax.servlet.annotation.WebServlet;
+		@WebServlet("/Pg1BackEndCodeGenerateOTP")
+		public class Pg1BackEndCodeGenerateOTP extends GenericServlet
+		{
+		@Override
+		public void service(ServletRequest req, ServletResponse resp) throws ServletException, IOException 
+		{
+			String uPhone= req.getParameter("mn");
+			System.out.println(uPhone);
+			PrintWriter printWriter= resp.getWriter();
+			printWriter.println(uPhone);
+			//JDBC Code
+			String url= "jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query= "select phoneNumber from advancejava.userinfo where phoneNumber=?";
+			try 
+			{
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection connection= DriverManager.getConnection(url);
+				PreparedStatement preparedStatement= connection.prepareStatement(query);
+				preparedStatement.setString(1, uPhone);
+				ResultSet resultSet= preparedStatement.executeQuery();
+				if(resultSet.next())
+				{
+					Random random= new Random();
+					int otp= random.nextInt(10000);
+					if(otp<0)
+					{
+						otp=otp*-1;
+					}
+					if(otp<1000)
+					{
+						otp=otp+1000;
+					}
+					System.out.println("OTP is: "+otp);
+				}
+				else
+				{
+					System.out.println("Invalid PhoneNumber");
+				}
+			} 	
+			catch (Exception e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}	
+		}
+	Front End
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action="Pg1BackEndCodeGenerateOTP">
+		<label>MobileNumber</label><input name="mn"></input>
+		<br><br>
+		<input type="submit" value="GenerateOTP"></input>
+		</form>
+		</body>
+		</html>
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+30-11-2020
+
+	wap to add data in library
+		package nov30;
+		import java.io.IOException;
+		import java.io.PrintWriter;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.PreparedStatement;
+		import java.sql.ResultSet;
+		import javax.servlet.GenericServlet;
+		import javax.servlet.ServletException;
+		import javax.servlet.ServletRequest;
+		import javax.servlet.ServletResponse;
+		import javax.servlet.annotation.WebServlet;
+		@WebServlet("/Pg1LibraryManagement")
+		public class Pg1LibraryManagement extends GenericServlet
+		{
+		@Override
+		public void service(ServletRequest req, ServletResponse resp) throws ServletException, IOException 
+		{
+			String bTitle= req.getParameter("btitle");
+			System.out.println(bTitle);
+			PrintWriter printWriter= resp.getWriter();
+			printWriter.println(bTitle);
+			String bAuthor= req.getParameter("bauthor");
+			System.out.println(bAuthor);
+			PrintWriter printWriter1= resp.getWriter();
+			printWriter1.println(bAuthor);
+			String bEdition= req.getParameter("bedition");
+			System.out.println(bEdition);
+			PrintWriter printWriter2= resp.getWriter();
+			printWriter2.println(bEdition);
+			String bPrice= req.getParameter("bprice");
+			System.out.println(bPrice);
+			PrintWriter printWriter3= resp.getWriter();
+			printWriter3.println(bPrice);
+			String bType= req.getParameter("btype");
+			System.out.println(bType);
+			PrintWriter printWriter4= resp.getWriter();
+			printWriter4.println(bType);
+			//JDBC Code
+			String url= "jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query = "insert into advancejava.bookinfo values (?,?,?,?,?)";
+			try 
+			{
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection connection= DriverManager.getConnection(url);
+				PreparedStatement preparedStatement= connection.prepareStatement(query);
+				preparedStatement.setString(1, bTitle);
+				preparedStatement.setString(2, bAuthor);
+				preparedStatement.setString(3, bEdition);
+				preparedStatement.setString(4, bPrice);
+				preparedStatement.setString(5, bType);
+				ResultSet resultSet= preparedStatement.executeQuery();
+			}	
+			catch (Exception e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		}
+	Front End
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action="Pg1LibraryManagement">
+		<label>BookTitle</label><input name="btitle"></input>
+		<br><br>
+		<label>BookAuthor</label><input name="bauthor"></input>
+		<br><br>
+		<label>Edition</label><input name="bedition"></input>
+		<br><br>
+		<label>BookPrice</label><input name="bprice"></input>
+		<br><br>
+		<label>BookType</label><input name="btype"></input>
+		<br><br>
+		<input type="submit" value="Add"></input>
+		</form>
+		</body>
+		</html>
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+01-12-2020
+
+Finally block will be executed even if there is an exception or no exception .
+Finally block is never used in scope of the class, it must be used in scope of the method.
+Finally block must be accompanied by try-catch block, it should be accompanied with try block.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+02-12-2020
+
+	wap to get checkbox and radiobuttons
+	Back End (same for both chackbox and radiobuttons)
+		package dec2;
+		import java.io.IOException;
+		import java.io.PrintWriter;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.PreparedStatement;
+		import java.sql.ResultSet;
+		import java.sql.SQLException;
+		import javax.servlet.GenericServlet;
+		import javax.servlet.ServletException;
+		import javax.servlet.ServletRequest;
+		import javax.servlet.ServletResponse;
+		import javax.servlet.annotation.WebServlet;
+		@WebServlet("/Pg1WorkingWithCheckboxes")
+		public class Pg1WorkingWithCheckboxes extends GenericServlet
+		{
+		@Override
+		public void service(ServletRequest req, ServletResponse resp) throws ServletException, IOException 
+		{
+			// TODO Auto-generated method stub
+			String[] arr= req.getParameterValues("lg");
+			String str= " ";
+			for(int index=0; index<=arr.length-1; index++)
+			{
+				str= str+", "+arr[index];
+				System.out.println("Index: "+index+" "+"Values: "+arr[index]);
+			}
+			String a= req.getParameter("mt");
+			System.out.println(a);
+			String url= "jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query = "insert into advancejava.languagesinfo values (?,?)";
+			try 
+			{
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection connection = DriverManager.getConnection(url);
+				PreparedStatement preparedStatement= connection.prepareStatement(query);
+				preparedStatement.setString(1, str);
+				preparedStatement.setString(2, a);
+				preparedStatement.executeUpdate();
+			} 
+			catch (Exception e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+		}
+		}	
+	Front End 
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action="Pg1WorkingWithCheckboxes">
+		<label>Languages known</label>
+		<input type="checkbox" name="lg" value="C">C
+		<input type="checkbox" name="lg" value="C++">C++
+		<input type="checkbox" name="lg" value="Java">Java
+		<input type="checkbox" name="lg" value="Python">Python
+		<br><br>
+		<label>Mother tongue</label>
+		<input type="radio" name="mt" value="Marathi">Marathi
+		<input type="radio" name="mt" value="Hindi">Hindi
+		<input type="radio" name="mt" value="Telugu">Telugu
+		<input type="radio" name="mt" value="English">English
+		<br><br>
+		<input type="submit" value="save">
+		</form>
+		</body>
+		</html>
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+03-12-2020
+
+Fetching users data from HTML file into Servlet class (very imp)
+In this concept, we have 2 different categories
+	1. Labels with single value
+	2. Labels with multiple value
+In order to fetch user information from HTML file to Servlet class, we have to follow 2 imp states
+	1. Declare 'name' for the <input> tag in HTML file, name attribute takes an identifier.
+	2. In the Servlet class we have to call either 2 inbuilt methods
+		1. getParameter();- 
+			It is preffered if label gives single value. It is associated with 'request'.
+			Public String getParameter(String identifierfromHTML);
+		2. getParameterValues();- 
+			It is basically used for the label which gives multiple values. The method signature for this method is 
+			Public String[] getParameterValues(String identifierfromHTML); 
+
+note:
+If the given identifier for the above methods is not present in HTML file then getParameter() and getParameterValues() returns 'null' without throwing any error.
+Private members are accesseble only within the respective class. Hence Private is also reffered as Class level AccessSpecifier.
+Default members are accesseble in the same class as well as other classes of the same package. Hence Default is also reffered as Package level AccessSpecifier.
+Public members are accesseble in any class of same package as well as any classes of other package. Hence Public is also reffered as Application level AccessSpecifier.
+
+Clean Code Approach
+In this approach, we have few imp rules 
+	1. For each operation programmer have to create separate method.
+	2. Each method must have the return type [Predefined types as well as User defined types].
+	3. If code is getting repeated in the method then place that repetative code inside the constructor.
+	4. Make all the methods as nonstatic.
+
+note:
+For the methods, programmers can either give with arguments or without arguments.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+04-12-2020
+
+	wap to convert dollars to rupees
+	Back End
+		package dec5;
+		import java.io.IOException;
+		import javax.servlet.GenericServlet;
+		import javax.servlet.ServletException;
+		import javax.servlet.ServletRequest;
+		import javax.servlet.ServletResponse;
+		import javax.servlet.annotation.WebServlet;
+		@WebServlet("/Pg1Converter")
+		public class Pg1Converter extends GenericServlet
+		{
+		@Override
+		public void service(ServletRequest req, ServletResponse resp) throws ServletException, IOException 
+		{
+			String dollars= req.getParameter("dl");
+			//Converting String type to double type
+			double cdollars= Double.parseDouble(dollars);
+			//Equation for converting Dollars to Rupees
+			double rupees= cdollars*73;
+			System.out.println(rupees);
+		}
+		}
+	Front End
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action="Pg1Converter">
+		<label>Enter(in Dollars)</label>
+		<input name="dl">
+		<input type="submit" value="convert">
+		</form>
+		</body>
+		</html>
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+05-12-2020
+
+Servlet Life Cycle (SLC)
+The 2 important reasons for programmer to use SLC are
+	1. It helps programmer in passing the value which varies periodically in the application.
+	2. It helps programmer in understanding the internal operations of Servlet class from the time of receiving request till Servlet class gives the response.
+There are 4 phases in SLC
+	1. Instantiation phase
+	2. Initialization phase
+	3. Service phase
+	4. Distruction phase
+
+note:
+Default constructor is also called as No argument constructor, Zero parameterized constructor and Compiler added constructor.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+07-12-2020
+
+1. Instantiation phase
+	In this phase, JEE Container creates Servlet Object for the respective Servlet class.
+	When a user makes the request, JEE Container creates Servlet Object by using default constructor present in the Servlet class.
+	If JEE Container can not find default constructor in Servlet class then it throws InstantiationException.
+
+2. Initialization phase
+	In this phase, programmers are responsible for passing the values to the application which are varrying.
+	Programmers can pass the value to the application in 2 ways
+		1. By using Init Parameters. 
+		(The values which are passed by the programmers affects only one Servlet class is techically called as Init Parameters.)
+		2. By using Context Parameters. 
+		(The values which are passed by the programmers affects all the Servlet class is techically called as Context Parameters.)
+	JEE Container creates Config object and Context object.
+	Config object is used to pass Init parameters.
+	Where as Context object is used to pass Context parameters by programers.
+	For 1 application, JEE Container creates 1 Context object.			
+	Where as JEE Container creates multiple Config object which is equal to number of Servlet class in application.
+
+See Diag 1
+	
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+08-12-2020
+
+	wap to get dollar value from rupee using Init parameters
+	Back End
+		package dec5;
+		import java.io.IOException;
+		import java.io.PrintWriter;
+		import javax.servlet.GenericServlet;
+		import javax.servlet.ServletConfig;
+		import javax.servlet.ServletException;
+		import javax.servlet.ServletRequest;
+		import javax.servlet.ServletResponse;
+		import javax.servlet.annotation.WebInitParam;
+		import javax.servlet.annotation.WebServlet;
+		@WebServlet
+		(
+			urlPatterns= {"/Pg1Sample"}, 
+			initParams= {@WebInitParam(name= "ty", value= "70")}
+		)
+		public class Pg1Sample extends GenericServlet 
+		{
+		double equi;
+		public Pg1Sample() 
+		{
+			super();
+       			System.out.println("Inside the Constructor");
+        		// TODO Auto-generated constructor stub
+		}	
+		public void init(ServletConfig config) throws ServletException
+		{
+    			String ValueGivenByParameters= config.getInitParameter("ty");
+			equi= Double.parseDouble(ValueGivenByParameters);
+		}
+		public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException 
+		{
+			String dollars= request.getParameter("dl");
+			//Converting String type to double type
+			double cdollars= Double.parseDouble(dollars);
+			//Equation for converting Dollars to Rupees
+			double rupees= cdollars*equi;
+			System.out.println(rupees);
+ 		}
+		}
+	Front End
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action="Pg1Sample">
+		<label>Enter(in Dollars)</label>
+		<input name="dl">
+		<input type="submit" value="convert">
+		</form>
+		</body>
+		</html>
+
+Steps involved in writting Init pamarameters and config object code are
+	1. Create a Servlet class by declaring Init Parameters above the Servlet class by using '@WebInitParam' annotation.
+	Init parameters are the values given by programmer to the single Servlet class which consists of identifier and a value.
+	2. Override Init method having config object as an argument.
+	3. Within Init method, programmers will fetch Init parameters into the Servlet class by using 'getInitParameter();' 
+	As an argument we pass identifier which is given in '@WebInitParam' annotation.
+	4. After fetching Init parameters, programmers will use it in Service() for printing the response.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+09-12-2020
+
+3. Service phase
+	In this phase user's request will be processed.
+	When user makes the request, JEE Container will create Servlet object first during Instantiation phase.
+	After creating Servlet object, Container creates Config object and Context object.
+	After creating Config object and Context object Container creates Request object and Response object.		
+	Container creates Request object and Response object for each user.
+	If 100 users makes the request for Multi Threaded application, Container creates 100 Request object and 100 Response object.
+	If 100 users makes the request for Single Threaded application, Container creates 1 Request object and 1 Response object. 
+	[This 1 Request object and 1 Response object will be shared for only 1 user at a time].
+	To make Servlet as Single Threaded programmers have 2 ways 
+		1. By using Synchronized keyword for service method [prefered way].
+		2. By implementing SingleThrededModelInterface [out dated].
+	Config object and Context object is used for passing the values given by programmer. 
+	Where as Request object and Response object deals with the values given by user.
+	Programmers values are fetched in Init method.
+	Where as users values within Service method.
+	
+4. Distruction phase
+	In this phase object which are allocated for the users will be destroyed by JEE Container.
+	Once after user leaves the application JEE Container will dertroy the allocated object.
+
+See Diag 2
+
+Difference between Config object and Context object.	
+	1. Config object are used to pass Init parameters.
+	   Context object is used to pass Context parameters.
+	2. For one application we can have multiple Config object depending on number of Servlet classes.
+	   For one application we have only one Context object. 
+	3. Any changes made thorough Config object will affect only 1 Servlet class.
+	   Any changes made thorough Context object will affect entire application.
+	4. Since Config object changes is affecting 1 Servlet class, it is refered as 'Local scope'.
+	   Since Context object is affecting entire application it is called as 'Global scope'.
+
+See Diag 3
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+10-12-2020
+
+HTTPServlet
+
+	wap to upload the image
+	Back End
+		package dec10;
+		import java.io.IOException;
+		import javax.servlet.ServletException;
+		import javax.servlet.annotation.MultipartConfig;
+		import javax.servlet.annotation.WebServlet;
+		import javax.servlet.http.HttpServlet;
+		import javax.servlet.http.HttpServletRequest;
+		import javax.servlet.http.HttpServletResponse;
+		import javax.servlet.http.Part;
+		@WebServlet("/Pg1UploadImagehttp")
+		@MultipartConfig(maxFileSize= 134217728)
+		public class Pg1UploadImagehttp extends HttpServlet
+		{
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+		{
+			// TODO Auto-generated method stub
+			String Name= req.getParameter("nm");
+			Part Img= req.getPart("ig");
+			System.out.println(Name+" "+Img);
+			// JDBC Code
+			String url= "jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query = "insert into advancejava.uploadimage values(?,?)";
+			try 
+			{
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection connection= DriverManager.getConnection(url);
+				PreparedStatement preparedStatement= connection.prepareStatement(query);
+				preparedStatement.setString(1, Name);
+				preparedStatement.setBlob(2, Img.getInputStream());
+				preparedStatement.executeUpdate();
+				connection.close();
+				System.out.println("Image Uploaded");
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		}
+	Front End
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action="Pg1UploadImagehttp" method= "post" enctype="multipart/form-data">
+		Name: <input name= "nm">
+		<br><br>
+		Image: <input type= "file" name= "ig">
+		<br><br>
+		<input type= "submit" value= "save">
+		</form>
+		</body>
+		</html>
+	images datatype- blob- binary large object 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+11-12-2020
+
+HTTPServlet
+It is an abstract class present in javax.servlet.hhtp package.
+Being an abstract class, it does not contain any abstract method, in turn it consist of complete methods like doGet() and doPost().
+If method= Post, in the form tag of html file then user information will be secuired. In HTTPServlet, programmers have to override doPost().
+If method= Get, user information will not be secuired. In HTTPServlet, programmers have to override doGet().
+
+note:
+By default, the method attribute in the form tag will behave like doGet().
+doGet() and doPost() are 'protected', which means any programmer should acccess those methods only through 'Inheritance'.
+
+The arguments for doGet() and doPost() are Request and Response. 
+JEE Conatiner creates Servlet object, Config object, Context object, Request object, Response object for HTTPServletclass also.
+Multipath Config annotation is used to represent the Maximum file size which can be proccessed by the Servlet class.
+enctype attribute takes multipart/form-data to represent that the given html file consists of data in the form of String as well as files which is selected by user.
+getPart() is an inbuilt method which is used to fetch files from html file into Servlet class. The returnType of getPart() is 'Part'.
+Part is generally refered as 'pixels'.
+
+Servlet chaining (very imp)
+The main important reason for using Servlet chaining is, programmers can display other files based on the result of varifying users data.
+Linking Servlet class to other files is technically called as Servlet chaining. 
+If Servlet class has to be linked with any other files [like html, jsp, other Servlet], programmers have to use Servlet chaining. 
+Linking html file to html file, we have to use of anchor tag [<a>]
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+13-12-2020
+
+See Diag 4
+To perform Servlet chaining process programmers will make use of RequestDispatcher interface which is present in javax.servlet package.
+The helper method for the above interface is 'getRequestDispatcher()' which takes name of the file which has to be 'linked from Servlet class'.
+	Syntax of RequestDispatcher interface is
+	RequestDispatcher rd= req.getRequestDispatcher("String filename");
+RequestDispatcher interface consists of 2 important method
+	1. Forward method.
+	2. Include method.
+
+	wap for Diag 4
+	Login
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		Email:<input>
+		<br><br>
+		Password:<input>
+		<br><br>
+		<input type= "submit" name= "Login">
+		<br><br>
+		<a href= "emailDec11.html">Forgot Password ?</a>
+		</body>
+		</html>
+	Email
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action= "Pg1CheckEmailId" method= "post">
+		Email:<input name= "eid">
+		<br><br>
+		<input type= "submit" value= "Check">
+		</form>
+		</body>
+		</html>
+	Back End Checking Mail
+		package dec11;
+		import java.io.IOException;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.PreparedStatement;
+		import java.sql.ResultSet;
+		import javax.servlet.RequestDispatcher;
+		import javax.servlet.ServletException;
+		import javax.servlet.annotation.WebServlet;
+		import javax.servlet.ServletContext;
+		import javax.servlet.http.HttpServlet;
+		import javax.servlet.http.HttpServletRequest;
+		import javax.servlet.http.HttpServletResponse;
+		@WebServlet("/Pg1CheckEmailId")
+		public class Pg1CheckEmailId extends HttpServlet
+		{
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+		{
+			//Fetching data from user
+			String Mail= req.getParameter("eid");
+			//Push the data onto Attributes
+			ServletContext context= getServletContext();
+			context.setAttribute("ty", Mail);
+			String url= "jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query= "select emailAddress from advancejava.usersinfo where emailAddress=?";
+			try 
+			{
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection connection= DriverManager.getConnection(url);
+				PreparedStatement preparedStatement= connection.prepareStatement(query);
+				preparedStatement.setString(1, Mail);
+				ResultSet resultSet= preparedStatement.executeQuery();
+				if(resultSet.next())
+				{
+					//Servlet chaining to password
+					RequestDispatcher requestDispatcher= req.getRequestDispatcher("passwordDec11.html");
+					requestDispatcher.include(req, resp);
+				}
+				else
+				{
+					//Servlet chaining to email
+					RequestDispatcher requestDispatcher= req.getRequestDispatcher("emailDec11.html");
+					requestDispatcher.include(req, resp);
+				}
+				connection.close();
+			} 	
+			catch (Exception e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		}
+	Password 
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action= "Pg1CheckEmailId">
+		<h1 style= "text-align:center">Create New Password</h1>
+		New Password:<input type="password" name= "Np">
+		<br><br>
+		Confirm New Password:<input name= "Cp">
+		<br><br>
+		<input type= "submit" value= "Change Password">
+		</form>
+		</body>
+		</html>
+	Back End Update
+		package dec11;
+		import java.io.IOException;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.PreparedStatement;
+		import java.sql.ResultSet;
+		import javax.servlet.RequestDispatcher;
+		import javax.servlet.ServletContext;
+		import javax.servlet.ServletException;
+		import javax.servlet.annotation.WebServlet;
+		import javax.servlet.http.HttpServlet;
+		import javax.servlet.http.HttpServletRequest;
+		import javax.servlet.http.HttpServletResponse;
+		@WebServlet("/Pg1Update")
+		public class Pg1Update extends HttpServlet
+		{
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+		{
+			String NPass= req.getParameter("Np");
+			String CPass= req.getParameter("Cp");
+			ServletContext context= getServletContext();
+			String mail= (String) context.getAttribute("ty");
+			// TODO Auto-generated method stub
+			if(NPass.equals(CPass))
+			{
+				String url= "jdbc:mysql://localhost:3307?user=root&password=12345";
+				String query= "update advancejava.usersinfo set passwords=? where emailAddress=?";
+				try 
+				{
+					Class.forName("com.mysql.jdbc.Driver");
+					Connection connection= DriverManager.getConnection(url);
+					PreparedStatement preparedStatement= connection.prepareStatement(query);
+					preparedStatement.setString(1, NPass);
+					preparedStatement.setString(2, mail);
+					preparedStatement.executeUpdate();
+					connection.close();
+					System.out.println("Saved Successfully");
+					RequestDispatcher requestDispatcher= req.getRequestDispatcher("loginDec11.html");
+					requestDispatcher.include(req, resp);
+				} 	
+				catch (Exception e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}	
+			}
+			else
+			{
+				RequestDispatcher requestDispatcher= req.getRequestDispatcher("passwordDec11.html");
+				requestDispatcher.include(req, resp);
+			}
+		}
+		}	
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+14-12-2020
+
+JSP [Java Server Pages]
+Programmers prefer Java Server Pages because it allows 'dynamic content displayed on the browser'.
+In order to display dynamic content, programmers have to write the coding of the combination having 'html and Java involved'.
+Since JSP files displays the content on the browser, programmers will create JSP files under 'WebContent folder'.
+
+	wap to geanrate OTP using JSP file for Diag 5
+	HTML 
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action="Pg1OTPDec14" method= "post">
+		PhoneNumber<input name= "ph">
+		<br><br>
+		<input type= "submit" value= "Generate OTP">
+		</form>
+		</body>
+		</html>
+	Back End 
+		package dec14;
+		import java.io.IOException;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.PreparedStatement;
+		import java.sql.ResultSet;
+		import javax.servlet.RequestDispatcher;
+		import javax.servlet.ServletException;
+		import javax.servlet.annotation.WebServlet;
+		import javax.servlet.http.HttpServlet;
+		import javax.servlet.http.HttpServletRequest;
+		import javax.servlet.http.HttpServletResponse;
+		@WebServlet("/Pg1OTPDec14")
+		public class Pg1OTPDec14 extends HttpServlet
+		{
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+		{
+			// TODO Auto-generated method stub
+			String Phone= req.getParameter("ph");
+			String url= "jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query= "select phoneNumber from advancejava.usersinfo where phoneNumber=?";
+			try 
+			{
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection connection= DriverManager.getConnection(url);
+				PreparedStatement preparedStatement= connection.prepareStatement(query);
+				preparedStatement.setString(1, Phone);
+				ResultSet resultSet= preparedStatement.executeQuery();
+				if(resultSet.next())
+				{
+					RequestDispatcher requestDispatcher= req.getRequestDispatcher("OTPDec14.jsp");
+					requestDispatcher.include(req, resp);
+				}
+				else
+				{
+					RequestDispatcher requestDispatcher= req.getRequestDispatcher("OTPDec14.html");
+					requestDispatcher.include(req, resp);
+				}
+			} 
+			catch (Exception e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		}
+	JSP 
+		<%@page import="java.util.Random"%>
+		<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<!-- Scriptlets -->
+		<%Random random= new Random();
+		int genOTP= random.nextInt(10000);
+		if(genOTP<0)
+		{
+			genOTP= genOTP*-1;
+		}
+		if(genOTP<1000)
+		{
+			genOTP= genOTP+1000;
+		}%>
+		<h3>OTP is: <%= genOTP %></h3>
+		<br><br><br><br>
+		<form action="Pg1CheckingOTP" method= "post">
+		Enter OTP to verify: <input>
+		<br><br>
+		<input type= "submit" value= "Verify OTP">
+		</form>
+		<!-- Pushing the data from JSP file to Attributes -->
+		<% application.setAttribute("run", genOTP); %>
+		</body>
+		</html>
+			where % is called as 'Scriptlets'.
+	Back End for Checking OTP 
+		package dec14;
+		import java.io.IOException;
+		import javax.servlet.ServletContext;
+		import javax.servlet.ServletException;
+		import javax.servlet.annotation.WebServlet;
+		import javax.servlet.http.HttpServlet;
+		import javax.servlet.http.HttpServletRequest;
+		import javax.servlet.http.HttpServletResponse;
+		@WebServlet("/Pg1CheckingOTP")
+		public class Pg1CheckingOTP extends HttpServlet
+		{
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+		{
+			// From user
+			int uOTP= Integer.parseInt(req.getParameter("rotp"));
+			// Pull the data from the Attributes using context object
+			ServletContext context= getServletContext();
+			int gOTP= (int) context.getAttribute("run");
+			if(uOTP == gOTP)
+			{
+				System.out.println("OTP is verified");
+			}
+			else
+			{
+				System.out.println("OTP is not verified");
+			}
+		}	
+		}
+
+note:
+Sharing the data between the files in the application can be done in 3 ways
+	1. By using 'context'.
+	2. By using 'session'.
+	3. By using 'request'.
+
+If data has to be shared using 'context' then we have to follow the below syntax.
+	syntax 1
+	ServletContext context= getServletContext();
+	setAttribute() is used to pass data to other files which takes 2 arguments.
+		1. Identifier
+		2. Data to be passed for other files
+	context.setAttribute('identifier', datatobepassed);
+	getAttribute() is used to pull the data from the attributes. Downcast it to the respective type.
+	DataType reference= (dataType) context.setAttribute('identifier');
+	where DataType refer to datatobepassed.
+	syntax 2
+	Context of Servlet class is refered as 'application' in JSP file.
+	setAttribute() is used to push the data from JSP file into other files of the application.
+	<%application.setAttribute('identifier', datatobepassed).
+	getAttribute() is used to pull the data into the JSP files. 
+	<%DataType reference= (DataType) application.setAttribute('identifier');%>
+	where DataType refer to datatobepassed.			
+
+	wap to get name
+	html to get mail, password
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action="Pg2WelcomeDec14" method= "post">
+		EmailId: <input name= "em">
+		<br><br>
+		<input type= "submit" value= "Next">
+		</form>
+		</body>
+		</html>
+	Back End 1
+		package dec14;
+		import java.io.IOException;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.PreparedStatement;
+		import java.sql.ResultSet;
+		import javax.servlet.RequestDispatcher;
+		import javax.servlet.ServletContext;
+		import javax.servlet.ServletException;
+		import javax.servlet.annotation.WebServlet;
+		import javax.servlet.http.HttpServlet;
+		import javax.servlet.http.HttpServletRequest;
+		import javax.servlet.http.HttpServletResponse;
+		@WebServlet("/Pg2WelcomeDec14")
+		public class Pg2WelcomeDec14 extends HttpServlet
+		{
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+		{
+			String uemail= req.getParameter("em");
+			ServletContext context= getServletContext();
+			context.setAttribute("emm", uemail);
+			// JDBC Code
+			String url= "jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query= "select emailAddress from advancejava.usersinfo where emailAddress=?";
+			try 
+			{
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection connection= DriverManager.getConnection(url);
+				PreparedStatement preparedStatement= connection.prepareStatement(query);
+				preparedStatement.setString(1, uemail);
+				ResultSet resultSet= preparedStatement.executeQuery();
+				if(resultSet.next())
+				{
+					RequestDispatcher requestDispatcher= req.getRequestDispatcher("WelcomeDec14.jsp");
+					requestDispatcher.include(req, resp);
+				}
+				else
+				{
+					RequestDispatcher requestDispatcher= req.getRequestDispatcher("WelcomeDec14.html");
+					requestDispatcher.include(req, resp);
+				}
+				connection.close();
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		}
+	JSP 1
+		<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<!-- Scriptlets -->
+		<%String s1= (String) application.getAttribute("emm"); %>
+		Enter MailId to verify: <%= s1 %> 
+		<br><br>
+		<form action="Pg2Welcome2Dec14" method= "post">
+		Enter Password to verify: <input name= "ps">
+		<br><br>
+		<input type= "submit" value= "Next">
+		</form>
+		</body>
+		</html>
+	Back End 2
+		package dec14;
+		import java.io.IOException;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.PreparedStatement;
+		import java.sql.ResultSet;
+		import javax.servlet.RequestDispatcher;
+		import javax.servlet.ServletContext;
+		import javax.servlet.ServletException;
+		import javax.servlet.annotation.WebServlet;
+		import javax.servlet.http.HttpServlet;
+		import javax.servlet.http.HttpServletRequest;
+		import javax.servlet.http.HttpServletResponse;
+		@WebServlet("/Pg2Welcome2Dec14")
+		public class Pg2Welcome2Dec14 extends HttpServlet
+		{
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+		{
+			String upass= req.getParameter("ps");
+			ServletContext context= getServletContext();
+			String pemail= (String) context.getAttribute("emm");
+			String url= "jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query= "select name from advancejava.usersinfo where passwords=? and emailAddress =?";
+			try 
+			{
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection connection= DriverManager.getConnection(url);
+				PreparedStatement preparedStatement= connection.prepareStatement(query);
+				preparedStatement.setString(1, upass);
+				preparedStatement.setString(2, pemail);
+				ResultSet resultSet= preparedStatement.executeQuery();
+				if(resultSet.next())
+				{
+					String name= resultSet.getString("name");
+					ServletContext context2= getServletContext();
+					context2.setAttribute("Name", name);
+					RequestDispatcher requestDispatcher= req.getRequestDispatcher("Welcome2Dec14.jsp");
+					requestDispatcher.include(req, resp);
+				}
+				else
+				{
+					RequestDispatcher requestDispatcher= req.getRequestDispatcher("WelcomeDec14.jsp");
+					requestDispatcher.include(req, resp);
+				}
+				connection.close();
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}		
+		}
+		}
+	JSP 2
+		<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<%String uname= (String)application.getAttribute("Name"); %>
+		<h3>Welcome <%= uname %></h3>
+		</body>
+		</html>
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+15-12-2020
+
+JSP elements
+We have 5 types of JSP elements [DEADS]
+	1. Directive JSP elements- It is used to combine other Java content in to the current JSP file.
+	2. Expression JSP elements- It is used to 'print Java content on the Browser'. 
+	3. Action JSP elements- It is used to perform Java task having the representation of tags.
+	4. Declaration JSP elements- It is bascially used to provide the 'global scope' for the Java content. 
+	5. Sciptlets JSP elements- It is used to provide 'local scope' for the Java content. 
+ 
+note: 
+Directive JSP element is representated as <%@--JavaCode--%>
+Expression JSP element is representated as <%=--JavaCode--%>
+Action JSP element is representated as <--JavaCode-->
+Declaration JSP element is representated as <%!--JavaCode--%>
+Sciptlets JSP element is representated as <%--JavaCode--%>
+
+Folder names
+	Workspace folder/ metadata/ plugins/ org.ecilipse.wst.server.core/ tmp0/ work/ Catalina/ localhost/ ProjectName/ org/ apache/ jsp
+	The above folder path indicates the location where internal codings of JSP files are present.
+
+JSP Life Cycle
+
+Here we have 5 phases
+	1. Translation Phase
+		File before Translation- ABC.jsp, File after Translation- ABC_jsp.java and ABC_jsp.class. 
+	2. Instantiation phase
+		Creates Servlet object.
+	3. Initialization phase
+		Creates Config and Application object.
+	4. Service phase
+		Creates Request and Response object.
+	5. Distruction phase
+
+Conatiner converts JSP files into TServlet classes having '.java' extension. followed by converting into '.class' extension.
+Conversion from JSP file into TServlet classes happens during run-time, which means after executing JSP file.
+All other phases of JSP Life Cycle are similar to Servlet Life Cycle.
+Servlet object, Config object, Application object, Request object, Response object are created by Container in JSP Life Cycle which is technically refered as 'Implicit objects' which are created during JSP Life Cycle.
+
+Action tag
+Programmers use JSP Action element to perfom Java operation internally with the appearance of html tags and attributes.
+
+<jsp:useBean id= "car" class= "ClassName">
+Internally it performs Java operation of creating the object, it takes 3 attributes
+	1. id attribute- used to provide reference variable name of the object to be created.
+	2. class attribute- used to mention fully qualified class name of the object to be created.
+	3. scope attribute- used to restrict the accessibility of the object created. It takes 4 different values
+		1. scope="application" - object can be accessed in any file of the entire application.
+		2. scope="page" - object can be accessed in the same JSP file
+		3. scope="request" - object is accessible only in the immidiate next file to which request is forwarded.
+		4. scope="session" - object can be accessed throughout if it is active.
+		note: (very imp)
+		By default the scope of the object is "page" 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+16-12-2020
+
+See Diag 6
+
+<jsp: setProperty>
+Used to initialize the variables of the object. 
+It takes 3 attributes
+	1. name attribute- represents object reference variable name to which values has to be initialized.
+	2. property attribute- represents non-static variable name which has to be initialize.
+	3. value attribute- represents the actual content which has to be given for the variable.
+
+<jsp: getProperty>
+Used to fetch the values from the object. 
+It takes 2 attributes
+	1. property attribute 
+	2. name attribute 
+
+<jsp: forward> and <jsp: include> (very imp)
+<jsp: forward> action tag is used to chain 1 JSP file with another JSP file or another html file.
+'Page attribute' is given to above action tags which takes the file name which has to be linked.
+<jsp: include> action tag throws a compile time error if given file name is not existing.
+Where as JSP forward throws runtime error if file name is not existing .
+ 
+note: 
+Difference between page as scope and page as attribute 
+	1. Page scope is an action tag called java.useBean action tag.
+	   Page attribute is an action tag called <include page>.
+	2. If object is given in Page scope then it can be find within the file.
+	   Page attribute is used to find file names which are linked.
+All the action JSP tags starts with <jsp: >.
+
+JSP directives
+It basically takes the help of other packages, other files to 'get ride of errors' appearing in current JSP file.
+Directives are representated <%@--JavaCode--%>
+We have 3 types of Directives
+	1. page directive
+	2. include directive
+	3. taglib directive
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+17-12-2020
+
+1. page directive
+	It mainly focus on making the changes in current JSP file.
+	It is representated as <%@page--JavaCode--%>
+	Few attributes which can be used with page directives are as 
+	1. import attribute
+		Used to import the file from different packages into current JSP file.
+	2. extends attribute 
+		It is used to inherit the members of super class and override the method in the current JSP file by using Declaration JSP element.
+	3. isThreadSafe attribute 
+		Used to make JSP files as 'SingleThreaded'.
+		If isThreadSafe= "true", then given JSP file is 'SingleThreaded'.
+		If isThreadSafe= "false", then given JSP file is 'MultiThreaded'.
+	4. errorPage attribute 
+		Used to mention JSP file name which consist of 'Recovery code'.
+		If in case the given JSP file consists of an exception then control will be automatically shifted to the JSP file name. 
+		The file name will be given in 'errorPage attribute'.
+	5. isErrorPage attribute	
+		Used to mention the current JSP file consists of only 'Recovery code'.
+		It is always better to indicate the JSP files which only consists of 'Recovery code' by using isErrorPage attribute.
+	note:
+	In page attribute, we do not have 'ipmlements' attribute.
+2. include directive
+	This helps the programmer in executing multipe files together where all the file outputs will be displayed at once on the browser.
+	<%include file= "JSPFileName"%>
+	wap
+		<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+		<!DOCTYPE h.... 00000000000.0.0.0..0tml>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<%@include file="1.jsp" %>
+		<h2>Inside 3rd JSP file</h2>
+		<%@include file="2.jsp" %>
+		</body>
+		</html>
+3. taglib directive
+	It is used to create custom JSP elements which can be used only if given JSP elements is not working in the application.
+
+Sessions
+Since HTTP is a stateless protocol, to keep the track of users programmers will make use of Sessions.
+(Stateless protocol- means each click on the application is considered as a new request)
+The 2 important reasons for wotking with sessions is 
+	1. As a programmer we can set the time limit on users activity.
+	2. Sessions object can be used for storing the information for given time limit.
+To create a session object programmers will make use of 'HttpSession interface'  which is present in 'javax.servlet.http.HttpServlet';
+The helper method for creating Session object is 'getSession()'
+	syntax
+	HttpSession session= req.getSession();
+To push the values into Sesssion object programmers will make use of 'setAttribute()'.
+	syntax
+	session.setAttribute("identifier", data)
+To pull the data from Session object into any file, programmers have to make use of 'getAttribute()'.
+	syntax
+	DataType variable= (DataType) session.setAttribute("identifier");
+To set time limit for Session object programmers will make use of 'setMaxInactiveInterval()'.
+To end the Session programmers will make use of 'invalidate()".
+	
+	wap to get program for Diag 8
+	Front End of login
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action= "Pg1LoginServlet" method= "post">
+		Phone: <input name= "ph">
+		<br><br>
+		<input type= "submit" value= "login">
+		</form>
+		</body>
+		</html>
+	Back End of login
+		package dec17;
+		import java.io.IOException;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.PreparedStatement;
+		import java.sql.ResultSet;
+		import javax.servlet.RequestDispatcher;
+		import javax.servlet.ServletException;
+		import javax.servlet.annotation.WebServlet;
+		import javax.servlet.http.HttpServlet;
+		import javax.servlet.http.HttpServletRequest;
+		import javax.servlet.http.HttpServletResponse;
+		import javax.servlet.http.HttpSession;
+		@WebServlet("/Pg1LoginServlet")
+		public class Pg1LoginServlet extends HttpServlet
+		{
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+		{
+			String Phone= req.getParameter("ph");
+			String url= "jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query= "select phoneNumber from advancejava.usersinfo where phoneNumber=?";
+			try 
+			{
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection connection= DriverManager.getConnection(url);
+				PreparedStatement preparedStatement= connection.prepareStatement(query);
+				preparedStatement.setString(1, Phone);
+				ResultSet resultSet= preparedStatement.executeQuery();
+				if(resultSet.next())
+				{
+					HttpSession session= req.getSession();
+					// Push the values in Session object
+					session.setAttribute("rn", Phone);
+					// Time limit for Session object	
+					session.setMaxInactiveInterval(400);
+					RequestDispatcher requestDispatcher= req.getRequestDispatcher("/Pg1LogoutServlet");
+					requestDispatcher.include(req, resp);
+				}
+				else
+				{
+					RequestDispatcher requestDispatcher= req.getRequestDispatcher("loginDec17.html");											requestDispatcher.include(req, resp);
+				}
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		}	
+	Back End of logout
+		package dec17;
+		import java.io.IOException;
+		import javax.servlet.RequestDispatcher;
+		import javax.servlet.ServletException;
+		import javax.servlet.annotation.WebServlet;
+		import javax.servlet.http.HttpServlet;
+		import javax.servlet.http.HttpServletRequest;
+		import javax.servlet.http.HttpServletResponse;
+		import javax.servlet.http.HttpSession;
+		@WebServlet("/Pg1LogoutServlet")
+		public class Pg1LogoutServlet extends HttpServlet
+		{
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+		{
+			HttpSession session= req.getSession();
+			String mob= (String) session.getAttribute("rn");
+			System.out.println(mob);
+			// To end the session
+			session.invalidate();
+			RequestDispatcher requestDispatcher= req.getRequestDispatcher("logoutDec17.html");
+			requestDispatcher.include(req, resp); 
+		}
+		}
+	Front End of logout
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<h1>Logged off, Visit again</h1>
+		</body>
+		</html>
+
+JSP Exspression Language
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------

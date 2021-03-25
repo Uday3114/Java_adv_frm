@@ -1,0 +1,1593 @@
+Framewok
+
+07-12-2020
+
+Framework
+Technology consists of 50% of predefined codes [inbuilt library] and rest 50% has written by programmer if application is developed by technologies.
+Since programmers contribution is more in developing application using technologies, time required is also more, hence it is not perfored.
+If application is developed using Frameworks then 90% will be predefined codes [inbuilt library] and rest 10% coding will be written by programmer.
+Since programmers contribution is less using Frameworks, it is prefered way in developing the application. 
+
+Hibernet Framework
+The extension of JDBC is generally refered as Hibernet Framework.
+The disadvantage of JDBC programs are
+	1. Creating tables is mandatory.
+	2. Handling checked exception [SQLException] using try-catch block is mandatory.
+	3. SQL knowledge is mandatory to write JDBC programs.
+	4. All the Database operations in JDBC program are performed by using queries.
+To overcome above darwbacks of JDBC programmers prefer Hibernet Framework.
+The advantages of Hibernet Framework are
+	1. Creating tables is optional.
+	2. Handling exception is optional because all exceptions are unchecked exceptions.
+	3. SQL knowledge is not required for writting Hibernet programs.
+	4. To perform any Database operations we prefer 'objects'.
+
+ORM [Object Relational Mapping] (very imp) 
+The process of creating the tables from entity clases is technically refered as Object Relational Mapping.
+ORM follows 2 important rules
+	1. Entity ClassName will be considered as TableName.
+	2. VariableName will be considered as ColumnName.
+Class helping program for creating tables is called as 'Entity Class'.
+
+note:
+If ORM encounters same object type for the 2nd and consecutive time, ORM will modify the existing table in the Database.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+08-12-2020
+
+tinyurl.com/jpajars
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+10-12-2020
+
+Srteps involved in writting Hibernet program
+	1. Create Jpa Project and add connection.
+	2. Copy and paste Jar files into the Project and perform 'Java build path'.
+	3. Create a Package under src folder and create 'Entity classes'.
+	4. Provide the url of the specific Database in 'persistence.xml' file.
+	5. Right click on the Project and select Jpa Tools and click on 'Generate tables from entity' option which results in table creation in Database.
+	6. Create Main class and write Jpa Templet which includes 2 interfaces
+		1. EntityManagerFactory interface.
+		2. EntityManager interface.
+	7. Run the Main class.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+22-12-2020
+
+1. Establish the connection
+JDBC
+	Connection connection= DriverManager.getConnection(url);
+	Where 
+	Connection- interface
+	connection- reference variable
+	DriverManager- connection
+	getConnection(url);- helper method
+Hibernate
+	EntityManagerFactory emf= Persistence.createEntityManagerFactory();
+	Where
+	EntityManagerFactory- interface
+	emf- reference variable
+	Persistence- connection
+	createEntityManagerFactory();- helper method
+	
+2. Create the platform 
+JDBC
+	Statement statement= connection.createStatement();
+	PreparedStatement preparedStatement= connection.prepareStatement();
+	CallableStatement callableStatement= connection.prepareCall();
+	Where
+	Statement, PreparedStatement, CallableStatement- interface
+	statement, preparedStatement, callableStatement- reference variable
+	connection- connection
+	createStatement();, prepareStatement();, prepareCall();- helper method
+Hibernate
+	EntityManager manager= emf.createEntityManager();
+	Where
+	EntityManager- interface
+	manager- reference variable
+	emf- connection
+	createEntityManager();- helper method
+
+Transaction in Hibernate
+It is basically used to perform different operations simultaneously.
+If any one operation fails, entire operation will be rolled back.
+To start the Transaction in the Hibernate, we make use of begin();
+	manager.getTransaction().begin();
+To end the Transaction in the Hibernate, we make use of commit(); 
+	manager.getTransaction().commit();
+
+note:
+persist() is used to save the object into the DataBase table.
+
+	wap for adding data in student
+		package Dec22;
+		import javax.persistence.EntityManager;
+		import javax.persistence.EntityManagerFactory;
+		import javax.persistence.Persistence;
+		import sHC.Student;
+		public class Pg1Mainclass 
+		{
+		public static void main(String[] args) 
+		{
+			// 1. Establish the connection
+			EntityManagerFactory factory= Persistence.createEntityManagerFactory("secondHibernetCode");
+			// 2. Create the platform 
+			EntityManager manager= factory.createEntityManager();
+			// Start the transaction
+			manager.getTransaction().begin();
+			// Creating Entity Class
+			Student student= new Student();
+			student.setRegNum("0437");
+			student.setMarks(4.37);
+			student.setName("sjs");
+			// To save object into DB
+			manager.persist(student);
+			// To end the transaction
+			manager.getTransaction().commit();
+		}
+		}
+	wap for adding data in name
+		package Dec22;
+		import java.util.Scanner;
+		import javax.persistence.EntityManager;
+		import javax.persistence.EntityManagerFactory;
+		import javax.persistence.Persistence;
+		import sHC.name;
+		public class Pg2Mainclass 
+		{
+		public static void main(String[] args) 
+		{
+			// 1. Establish the connection
+			EntityManagerFactory factory= Persistence.createEntityManagerFactory("secondHibernetCode");
+			// 2. Create the platform 
+			EntityManager manager= factory.createEntityManager();
+			// Start the transaction
+			manager.getTransaction().begin();
+			// Creating Entity Class
+			Scanner scan= new Scanner(System.in);
+			name nm= new name();
+			System.out.println("Enter Name");
+			nm.setName(scan.next());
+			System.out.println("Enter Adhar No.");
+			nm.setAdharNum(scan.next());
+			System.out.println("Enter Age");
+			nm.setAge(scan.nextInt());
+			// To save object into DB
+			manager.persist(nm);
+			// To end the transaction
+			manager.getTransaction().commit();	
+		}
+		} 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+23-12-2020
+
+Combining Hibernet with Servlets
+Programmers will create Dynamic web project and make suitable changes so that Servlets and Hibernet coding can be combined.
+By default, Dynamic web project does not contain 'persistence.xml file'.
+Into the 'lib' folder of Dynamic web project, paste the 'JPA Jar files' and 'servlet.api.jarfile'.
+In order to get persistence.xml file in Dynamic web project, programmers have to follow following steps
+	1. Right click on the project and click on 'properties'.
+	2. Select 'project facets' option and check 'JPA' option.
+	3. Change version to '2.1'.
+	4. Click on 'further configuration available' option followed by selection 'connection'.
+	5. Click on 'ok', 'apply and close'.
+
+HTML --> Servlet + Hibernet --> DataBase
+It contains
+HTML- tags.
+Servlation- GenericServlet, HTTPServlet.
+Hibernate- EntityClass, persistence.xml, EntityManagerFactory and EntityManager.
+
+	wap for price details of car
+	Car Servlet
+		package dec23;
+		import java.io.IOException;
+		import javax.persistence.EntityManager;
+		import javax.persistence.EntityManagerFactory;
+		import javax.persistence.Persistence;
+		import javax.servlet.RequestDispatcher;
+		import javax.servlet.ServletContext;
+		import javax.servlet.ServletException;
+		import javax.servlet.annotation.WebServlet;
+		import javax.servlet.http.HttpServlet;
+		import javax.servlet.http.HttpServletRequest;
+		import javax.servlet.http.HttpServletResponse;
+		@WebServlet("/Pg1CarSevlet")
+		public class Pg1CarSevlet extends HttpServlet
+		{
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+		{
+			// Fetching data from html file 
+			String carNumber= req.getParameter("cnum");
+			String carColor= req.getParameter("ccol");
+			String carPrice= req.getParameter("cpri");
+			// Convert String to double
+			double price= Double.parseDouble(carPrice);
+			// Hibernate code
+			EntityManagerFactory factory= Persistence.createEntityManagerFactory("ProjectDyn2");
+			EntityManager manager= factory.createEntityManager();
+			manager.getTransaction().begin();
+			Car car= new Car();
+			car.setCarNumber(carNumber);
+			car.setCarColor(carColor);
+			car.setCarPrice(price);
+			manager.persist(car);
+			// JSP file
+			ServletContext context= req.getServletContext();
+			context.setAttribute("cn", carNumber);
+			context.setAttribute("cc", carColor);
+			context.setAttribute("cp", price);
+			RequestDispatcher requestDispatcher= req.getRequestDispatcher("Pg1Car.jsp");
+			requestDispatcher.include(req, resp);
+			manager.getTransaction().commit();
+		}
+		}	
+	Car Front End
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action="Pg1CarSevlet" method= "post">
+		<h2>Car Details:</h2>
+		CarNumber:<input name= "cnum">
+		<br><br>
+		CarColor:<input name= "ccol">
+		<br><br>
+		CarPrice:<input name= "cpri">
+		<br><br>
+		<input type= "submit" value= "Save">
+		</form>
+		</body>
+		</html>
+	Car JSP
+		<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+		<!DOCTYPE html>
+/		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<h2>Car Details successfully saved</h2>
+		<h3>The Saved Car details are:</h3>
+		carNumber: <%= application.getAttribute("cn")%>
+		<br><br>
+		carColor: <%= application.getAttribute("cc")%>
+		<br><br>
+		carPrice: <%= application.getAttribute("cp")%>
+		<br><br>
+		<a href= "Pg1Car.html"> To add new Car details: Click here </a>
+		</body>
+		</html>
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+24-12-2020
+
+Reverse Engineering Process (REP)
+This process helps the programmers in retriving the data in the form of object.
+To perform REP process, we have to make use of 'find()' which takes 2 arguments as
+	1. Entity class name corresponding to the table from which we have to retrieve the data.
+	2. Value corresponding to Primary Key.
+
+note:
+If given Primary Key is not existing in the table then 'find()' returns null
+
+	syntax
+	manager.find(emp.class, );
+If the Primary Key column value is existing in the table then find() returns the object which is corresponding to the value passed.
+See Diag 9
+	syntax
+	manager.find(EntityclassName.classPrimaryKeyColumnName);
+	Where EntityclassName refers to the corresponding table from which data has to be retried.
+
+	Front End
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action="Pg1Retrival" method= "post">
+		CarNumber:<input name= "cr">
+		<input type= "submit" value= "Retrive">
+		</form>
+		</body>
+		</html>
+	Servlet Class
+		package dec23;
+		import java.io.IOException;
+		import javax.persistence.EntityManager;
+		import javax.persistence.EntityManagerFactory;
+		import javax.persistence.Persistence;
+		import javax.servlet.RequestDispatcher;
+		import javax.servlet.ServletContext;
+		import javax.servlet.ServletException;				
+		import javax.servlet.annotation.WebServlet;
+		import javax.servlet.http.HttpServlet;
+		import javax.servlet.http.HttpServletRequest;
+		import javax.servlet.http.HttpServletResponse;
+		import dec23.Car;
+		@WebServlet("/Pg1Retrival")
+		public class Pg1Retrival extends HttpServlet
+		{
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+		{
+			// TODO Auto-generated method stub
+			String carNo= req.getParameter("cr");		
+			EntityManagerFactory factory= Persistence.createEntityManagerFactory("ProjectDyn2");
+			EntityManager manager= factory.createEntityManager();
+			manager.getTransaction().begin();
+			//Retriving the data from objects
+			Car cr= manager.find(Car.class, carNo);
+			System.out.println(cr);
+			ServletContext context= req.getServletContext();
+			context.setAttribute("cn", cr);
+			manager.getTransaction().commit();
+			RequestDispatcher requestDispatcher= req.getRequestDispatcher("Pg1Retrival.jsp");
+			requestDispatcher.include(req,resp);	
+		}
+		}
+	JSP 
+		<%@page import="dec23.Car"%>
+		<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<h3>The Car details are:</h3>
+		<%Car c1=(Car)application.getAttribute("cn"); %>
+		carNumber: <%=c1.getCarNumber()%>
+		<br><br>
+		carColor: <%=c1.getCarColor()%>
+		<br><br>		
+		carPrice: <%=c1.getCarPrice()%>
+		<br><br>
+		</body>
+		</html>
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+25-12-2020
+
+Update operation
+To perform this operation, we have to perform reinitialization in java.
+Before updating the data we have to use 'find()' to target a specific record which has to be updated.
+find() will convert that specific record into an onject.
+After converting into the object we can reinitialize the object by using 'setters()'.
+
+Delete operation
+To perform this operation, we have to make use of 'remove()'.
+Firstly we have to use 'find()' to target the specific record which has to be deleated.
+find() will convert that specific record into an object.
+After converting into the object we pass that object as an argument for 'remove()'.
+
+Disadvantage
+All the above methods which performs DataBase operations (insert, update, delete, select) will affect 'only 1 record' because of primary key column value.
+To overcome this drawback, we have to make use of JPQL (Java Persistance Query Language).
+
+	wap for insert, retrival, update, delete operation for book
+	Interface
+		package dec25;
+		public interface BookInterface 
+		{
+			public boolean addBook(String BTi, String BAu, int BEd, double BPr, String BTy);
+			public Book searchBook(String pk);
+			public boolean updateBook(String pk);
+			public boolean deleteBook(String pk);
+		}
+	Clean Code
+		package dec25;
+		import java.util.Scanner;
+		import javax.persistence.EntityManager;
+		import javax.persistence.EntityManagerFactory;
+		import javax.persistence.Persistence;
+		import org.eclipse.persistence.internal.sessions.CommitManager;
+		public class CleanCode 
+		{
+		public BookInterface bookInterface()
+		{
+			return new BookImp();
+		}
+		private class BookImp implements BookInterface
+		{
+			EntityManagerFactory factory;
+			EntityManager manager;
+			public BookImp()
+			{
+				factory= Persistence.createEntityManagerFactory("LibraryManagementUsingHibernate1");
+				manager= factory.createEntityManager();
+				manager.getTransaction().begin();
+			}
+		@Override
+		public boolean addBook(String BTi, String BAu, int BEd, double BPr, String BTy) 
+		{
+			Book b= new Book();
+			b.setBookTitle(BTi);
+			b.setBookAuthor(BAu);
+			b.setBookEdition(BEd);
+			b.setBookPrice(BPr);
+			b.setBookType(BTy);
+			manager.persist(b);
+			manager.getTransaction().commit();
+			if(b.equals(null))
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		@Override
+		public Book searchBook(String pk) 
+		{
+			Book b= manager.find(Book.class, pk);
+			if(b.equals(null))
+			{
+				return null;
+			}
+			else
+			{
+				return b;
+			}
+		}
+		@Override
+		public boolean updateBook(String pk) 
+		{
+			Scanner scan= new Scanner(System.in);
+			System.out.println("Enter 1 to Update BookAuthor");
+			System.out.println("Enter 2 to Update BookEdition");
+			System.out.println("Enter 3 to Update BookPrice");
+			System.out.println("Enter 4 to Update BookType");
+			System.out.println("Enter 5 to Update All");
+			String s= scan.next();
+			Book b= manager.find(Book.class, pk);
+			String BookAuthor;
+			int BookEdition;
+			double BookPrice;
+			String BookType;
+			switch (s) 
+			{
+				case "1":	
+				System.out.println("Enter BookAuthor to Update: ");
+				BookAuthor= scan.next();
+				b.setBookAuthor(BookAuthor);
+				if(b.getBookAuthor().equals(BookAuthor))
+				{
+					manager.getTransaction().commit();
+					return true;
+				}
+				break;
+				case "2":	
+				System.out.println("Enter BookEdition to Update: ");
+				BookEdition= scan.nextInt();
+				b.setBookEdition(BookEdition);
+				if(b.getBookEdition()==BookEdition)
+				{
+					manager.getTransaction().commit();
+					return true;
+				}
+				break;
+				case "3":	
+				System.out.println("Enter BookPrice to Update: ");
+				BookPrice= scan.nextDouble();
+				b.setBookPrice(BookPrice);
+				if(b.getBookPrice()==BookPrice)
+				{
+					manager.getTransaction().commit();
+					return true;
+				}
+				break;
+				case "4":	
+				System.out.println("Enter BookType to Update: ");
+				BookType= scan.next();
+				b.setBookType(BookType);
+				if(b.getBookType().equals(BookType))
+				{
+					manager.getTransaction().commit();
+					return true;
+				}
+				break;
+				case "5":	
+				System.out.println("Enter all data to Update: ");
+				BookAuthor= scan.next();
+				BookEdition= scan.nextInt();
+				BookPrice= scan.nextDouble();
+				BookType= scan.next();
+				Book B= b;
+				b.setBookAuthor(BookAuthor);
+				b.setBookEdition(BookEdition);
+				b.setBookPrice(BookPrice);
+				b.setBookType(BookType);
+				if(b.equals(B))
+				{
+					manager.getTransaction().commit();
+					return true;
+				}
+			}
+			scan.close();
+			return false;
+		}
+		@Override
+		public boolean deleteBook(String pk) 
+		{
+			Book b= manager.find(Book.class, pk);
+			manager.remove(b);
+			if(b.equals(null))
+			{
+				return true;	
+			}
+			else
+			{
+				return false;
+			}
+		}
+		}
+		}
+	Main Class
+		package dec25;
+		import java.util.Scanner;
+		public class MainClass 
+		{
+		public static void main(String[] args) 
+		{
+			System.out.println("Welcome to LibraryManagementUsingHibernate1");
+			System.out.println("Enter 1 to add Book");
+			System.out.println("Enter 2 to search Book");
+			System.out.println("Enter 3 to update Book");
+			System.out.println("Enter 4 to delete Book");
+			Scanner scan= new Scanner(System.in);
+			String option= scan.next();
+			CleanCode cc= new CleanCode();
+			BookInterface bi= cc.bookInterface();
+			String Title;
+			String Author;
+			int Edition;
+			double Price;
+			String Type;
+			switch (option) 
+			{
+				case "1":
+				System.out.println("Enter Title");
+				Title= scan.next();
+				System.out.println("Enter Author");
+				Author= scan.next();
+				System.out.println("Enter Edition");
+				Edition= scan.nextInt();
+				System.out.println("Enter Price");
+				Price= scan.nextDouble();
+				System.out.println("Enter Type");
+				Type= scan.next();
+				System.out.println(bi.addBook(Title, Author, Edition, Price, Type));
+				break;
+				case "2":
+				System.out.println("Enter Title");
+				Title= scan.next();
+				System.out.println(bi.searchBook(Title));
+				break;
+				case "3":
+				System.out.println("Enter Title");
+				Title= scan.next();
+				System.out.println(bi.updateBook(Title));
+				break;
+				case "4":
+				System.out.println("Enter Title");
+				Title= scan.next();
+				System.out.println(bi.deleteBook(Title));
+				break;
+				default: 
+				System.out.println("Invalid BookTitle");
+			}
+		}
+		}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+26-12-2020
+
+CRUD operations
+It stands for the DataBase operations which can be performed by the programmers.
+The abrivation of CRUD is 
+	C- create the table and insert the data
+	R- reading the data
+	U- updating the data
+	D- deleting the data
+These operations are performed in JDBC by using 'Queries'. Insert query, Select query, Update query, Delete query is used for this process.
+The CRUD operations are performed in Hibernate by using 'Objects along with inbuilt methods'.
+Inbuilt methods which are prefered are persist(), remove(), setters(), find().
+
+	VIEW
+	Front Page
+		<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<a href="insert.jsp">Insert Book details</a> 
+		<br><br>
+		<a href="read.jsp">Read Book details</a> 
+		<br><br>
+		<a href="update.jsp">Update Book details</a> 
+		<br><br>
+		<a href="delete.jsp">Delete Book details</a> 
+		<br><br>
+		</body>	
+		</html>
+	Insert
+		<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action= "Insert" method= "post">
+		Book Title: <input name= "bti">
+		<br><br>
+		Book Author: <input name= "bau">
+		<br><br>
+		Book Edition: <input name= "bed">
+		<br><br>
+		Book Price: <input name= "bpr">
+		<br><br>
+		Book Type: <input name= "bty">
+		<br><br>
+		<input type= "submit" value = "Add">
+		</form>
+		</body>
+		</html>
+	Read
+		<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action= "" method= "post">
+		<h3>Enter the Book Title</h3>
+		<br><br>
+		<input name= "bti">
+		<br><br>
+		<input type= "submit" value = "Read">
+		</form>
+		</body>
+		</html>
+	Update
+		<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action= "" method= "post">
+		<h3>Enter the Book Title for updating data</h3>
+		<br><br>
+		Book Title: <input name= "bti">
+		<br><br>
+		Book Author: <input name= "bau">
+		<br><br>
+		Book Edition: <input name= "bed">
+		<br><br>
+		Book Price: <input name= "bpr">
+		<br><br>
+		Book Type: <input name= "bty">
+		<br><br>
+		<input type= "submit" value = "Update">
+		</form>
+		</body>
+		</html>	
+	Delete
+		<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action= "" method= "post">
+		<h3>Enter the Book Title for deleting data</h3>
+		<br><br>
+		<input name= "bti">
+		<br><br>
+		<input type= "submit" value = "Delete">
+		</form>
+		</body>
+		</html>
+	CONTROLLER
+	Insert
+		package controller;
+		import java.io.IOException;
+		import javax.servlet.ServletException;
+		import javax.servlet.annotation.WebServlet;
+		import javax.servlet.http.HttpServlet;
+		import javax.servlet.http.HttpServletRequest;
+		import javax.servlet.http.HttpServletResponse;
+		import model.CleanCode;
+		@WebServlet("/view/Insert")
+		public class Insert extends HttpServlet
+		{
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+		{
+			String Bti= req.getParameter("bti");
+			String Bau= req.getParameter("bau");
+			String Bed= req.getParameter("bed");
+			String Bpr= req.getParameter("bpr");
+			String Bty= req.getParameter("bty");
+			double price= Double.parseDouble(Bpr);
+			int edition= Integer.parseInt(Bed);
+			CleanCode cd= new CleanCode();
+			cd.insertBook(Bti, Bau, Bed, Bpr, Bty);
+		}
+		}
+	Read
+		package controller;
+		import java.io.IOException;
+		import javax.servlet.ServletException;
+		import javax.servlet.annotation.WebServlet;
+		import javax.servlet.http.HttpServlet;
+		import javax.servlet.http.HttpServletRequest;
+		import javax.servlet.http.HttpServletResponse;
+		import model.CleanCode;
+		@WebServlet("/view/Read")
+		public class Read extends HttpServlet
+		{
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+		{
+			String Bti= req.getParameter("bti");
+			CleanCode cd= new CleanCode();
+			cd.readBook(Bti);
+		}
+		}
+	Update 
+		package controller;
+		import java.io.IOException;
+		import javax.servlet.ServletException;
+		import javax.servlet.annotation.WebServlet;
+		import javax.servlet.http.HttpServlet;
+		import javax.servlet.http.HttpServletRequest;
+		import javax.servlet.http.HttpServletResponse;
+		import model.CleanCode;
+		@WebServlet("/view/Update")
+		public class Update extends HttpServlet
+		{
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+		{
+			String Bti= req.getParameter("bti");
+			String Bau= req.getParameter("bau");
+			String Bed= req.getParameter("bed");
+			String Bpr= req.getParameter("bpr");
+			String Bty= req.getParameter("bty");
+			double price= Double.parseDouble(Bpr);
+			int edition= Integer.parseInt(Bed);
+			CleanCode cd= new CleanCode();
+			cd.updateBook(Bti, Bau, Bed, Bpr, Bty);
+		}
+		}
+	Delete
+		package controller;
+		import java.io.IOException;
+		import javax.servlet.ServletException;
+		import javax.servlet.annotation.WebServlet;
+		import javax.servlet.http.HttpServlet;
+		import javax.servlet.http.HttpServletRequest;
+		import javax.servlet.http.HttpServletResponse;
+		import model.CleanCode;
+		@WebServlet("/view/Delete")
+		public class Delete extends HttpServlet
+		{
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+		{
+			String Bti= req.getParameter("bti");
+			CleanCode cd= new CleanCode();
+			cd.deleteBook(Bti);
+		}
+		}
+	MODEL
+	CleanCode
+		package model;
+		import java.util.Scanner;
+		import javax.persistence.EntityManager;
+		import javax.persistence.EntityManagerFactory;
+		import javax.persistence.Persistence;
+		public class CleanCode 
+		{
+		EntityManagerFactory factory;
+		EntityManager manager;
+		Scanner scanner= new Scanner(System.in);
+		public CleanCode()
+		{
+			factory= Persistence.createEntityManagerFactory("LibraryManagement");
+			manager= factory.createEntityManager();
+			manager.getTransaction().begin();
+		}
+		public void insertBook(String Bti, String Bau, String Bed, String Bpr, String Bty) 
+		{
+			Book b= new Book();
+			b.setBooktitle(Bti);
+			b.setBookauthor(Bau);
+			b.setBookedition(Bed);
+			b.setBookprice(Bpr);
+			b.setBooktype(Bty);	
+			manager.persist(b);
+			manager.getTransaction().commit();
+			System.out.println("Book added");
+			System.out.println("Book details are: "+b);
+		}
+		public void readBook(String Bti) 
+		{
+			Book b= manager.find(Book.class, Bti);
+			System.out.println("Book Author is: "+ b.getBookauthor());
+			manager.getTransaction().commit();
+		}
+		public void updateBook(String Bti, String Bau, String Bed, String Bpr, String Bty) 
+		{
+			Book b= new Book();
+			b.setBooktitle(Bti);
+			b.setBookauthor(Bau);
+			b.setBookedition(Bed);
+			b.setBookprice(Bpr);
+			b.setBooktype(Bty);	
+			manager.persist(b);
+			manager.getTransaction().commit();
+			System.out.println("Book added");
+			System.out.println("Book details are: "+b);
+		}		
+		public void deleteBook(String Bti) 
+		{
+			Book b= manager.find(Book.class, Bti);
+			System.out.println("Removed Book details are: "+b);
+			manager.remove(b);
+			manager.getTransaction().commit();
+		}
+		}			
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+28-12-2020
+
+Java Persistance Query Language [JPQL]
+'@table' annotation is used to provide programmer defined table names. Using this programmer can explicitly specify the table name which has to be created.
+'@column' is used to provide programmer defined column names. Using this programmer can explicitly specify the column name which has to be created.
+
+note:
+'@entity' anf '@id' are mandatory annotations to be used in entity class. Where as '@table' and '@column' are optional annotation to be used in entity class.
+
+See Diag 10
+
+JPQL queries are the extension of SQL queries.
+In SQL queries we make use of table names and column names where as in JPQL queries we make use of entity class nmaes and variable names.
+To use JPQL queries in the program we have to follow 3 steps
+	1. Define JPQL query.
+	2. Inform Hibernate framework about working with JPQL queries.
+	To inform Hibernate about JPQL queries working, we have to call 'createQuery();'
+	As an argument we pass JPQL query.
+	3. Exceute JPQL queris.
+
+SQL
+	1. 
+	Select *
+	from emp
+	where employeeId=12;
+	2. 
+	Update emp
+	set employeeName= 'mno'
+	where employeeId= 15;
+	3. 
+	Delete from emp;
+JPQL
+	1. 
+	Select *
+	from Employee
+	where empId=12;
+	2. 
+	Update Employee
+	set emplName= 'mno'
+	where empId= 15;
+	3. 
+	Delete from Employee;
+Entity Class: Employee
+Variable Name: empNmae, designation, empId
+
+	wap to update using JPQL 
+		package dec28;
+		import javax.persistence.EntityManager;
+		import javax.persistence.EntityManagerFactory;
+		import javax.persistence.Persistence;
+		import javax.persistence.Query;
+		public class Pg1 
+		{
+		public static void main(String[] args) 
+		{
+			EntityManagerFactory factory= Persistence.createEntityManagerFactory("ProjectDyn2");
+			EntityManager manager= factory.createEntityManager();
+			manager.getTransaction().begin();
+			// Step 1: Define the JPQL query.
+			String jpql= "Update Employee set empName= 'smjs' where empId= 4";
+			// Step 2: Inform Hibernate framework about working with JPQL queries. 
+			Query query= manager.createQuery(jpql);
+			// Step 3: Exceute JPQL queris.
+			query.executeUpdate();
+			System.out.println("Updated");
+			manager.getTransaction().commit();
+		}
+		}
+	wap to dalete using JPQL
+		package dec28;
+		import javax.persistence.EntityManager;
+		import javax.persistence.EntityManagerFactory;
+		import javax.persistence.Persistence;
+		import javax.persistence.Query;
+		public class Pg2 
+		{
+		public static void main(String[] args) 
+		{
+			EntityManagerFactory factory= Persistence.createEntityManagerFactory("ProjectDyn2");
+			EntityManager manager= factory.createEntityManager();
+			manager.getTransaction().begin();
+			// Step 1: Define the JPQL query.
+			String jpql= "Delete from Employee";
+			// Step 2: Inform Hibernate framework about working with JPQL queries. 
+			Query query= manager.createQuery(jpql);
+			// Step 3: Exceute JPQL queris.
+			query.executeUpdate();
+			System.out.println("Deleted successfully");
+			manager.getTransaction().commit();
+		}	
+		}
+	wap for 
+	Entity class
+		package dec28;
+		public class Employee 
+		{
+		int employeeId;
+		String empDesignation;
+		String employeeName;
+		public int getEmployeeId() 
+		{
+			return employeeId;
+		}
+		public void setEmployeeId(int employeeId) 
+		{
+			this.employeeId = employeeId;
+		}
+		public String getEmpDesignation() 
+		{
+			return empDesignation;
+		}
+		public void setEmpDesignation(String empDesignation) 
+		{
+			this.empDesignation = empDesignation;
+		}
+		public String getEmployeeName() 
+		{
+			return employeeName;
+		}
+		public void setEmployeeName(String employeeName) 
+		{
+			this.employeeName = employeeName;
+		}
+		@Override
+		public String toString() 
+		{
+			return "Employee [employeeId=" + employeeId + ", empDesignation=" + empDesignation + ", employeeName="+ employeeName + "]";
+		}	
+		}
+	Main class
+		package dec28;
+		import java.sql.Connection;
+		import java.sql.DriverManager;
+		import java.sql.PreparedStatement;
+		import java.sql.ResultSet;
+		import java.sql.SQLException;
+		import java.util.ArrayList;
+		import java.util.Iterator;
+		public class MainClass 
+		{
+		public static void main(String[] args) 
+		{
+			String url ="jdbc:mysql://localhost:3307?user=root&password=12345";
+			String query = "select * from advancejava.emp";
+			ArrayList<Employee> a1= new ArrayList<Employee>();
+			try
+			{
+				Connection connection = DriverManager.getConnection(url);
+				PreparedStatement preparedStatement= connection.prepareStatement(query);
+				ResultSet resultSet= preparedStatement.executeQuery();
+				while(resultSet.next())
+				{
+					Employee e1= new Employee();
+					int eid= resultSet.getInt("employeeId");
+					String edesignation= resultSet.getString("empDesignation");
+					String ename= resultSet.getString("employeeNmae");
+					e1.setEmployeeId(eid);
+					e1.setEmpDesignation(edesignation);
+					e1.setEmployeeName(ename);
+					a1.add(e1);				
+				}
+				Iterator<Employee> i1= a1.iterator();
+				while(i1.hasNext())
+				{
+					System.out.println(i1.next());
+				}
+				connection.close();
+			}	
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+29-12-2020
+
+We can pass run time values for JPQL queries in 2 ways
+	1. By using Positional parameters
+	These are represented by using '?position' where position refers to the place of placeholder ocuurance in the query where it starts from 1.
+	2. By using Named parameters
+	These are represented by using ':identifier' where identifier is the name given by programmers.
+	To pass the values for Positional and Named parameters we have to make use of 'setParameter()'
+
+SQL and JPQL
+	1. SQL queries are given with tableName and columnNames.
+	   JPQL queries are given with Entity className and variableName.
+	2. SQL queries can take run time values only by using placeholders.
+	   JPQL queries consists of 2 ways to take run time values as Positional and Named parameters.
+	3. In SQL queries we have specific setters method for each DataType.
+	   In JPQL queries we have one comman method by name 'setParameter()' to pass any type of data. 
+	4. In SQL select query, writting select clause is mandatory.
+	   In JPQL select query, writting the select clause is optional.
+	5. In SQL select query, giving the alias name for the table is optional.
+	   In JPQL select query, giving reference variable name for the entity className is mandatory.
+	6. In SQL select query, * token is valid.
+	   In JPQL select query, giving * token is invalid which results in syntax error.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+30-12-2020
+
+For executing JPQL, select query, we have to make use of getResultList() method, it performs 4 functionalities as
+	1. Move the cursor from one position to another position in the table.
+	2. Convert each record into an object.
+	3. Add the object into an ArrayList collection and upcast into List type.
+	4. Return that List type to the programmers.
+example
+	1. select e from Employee e - valid
+	2. from Employee e - valid
+	3. select * from Employee e - invalid, since * is used
+	4. select e * from Employee e - invalid, since * is used
+	5. select e from Employee - invalid, since reference variable is not given
+
+Special case of JPQL query
+See Diag 11
+		package model;
+		import java.util.List;
+		import javax.persistence.EntityManager;
+		import javax.persistence.EntityManagerFactory;
+		import javax.persistence.Persistence;
+		import javax.persistence.Query;
+		public class Pg1dec30 
+		{
+		public static void main(String[] args) 
+		{
+			EntityManagerFactory factory= Persistence.createEntityManagerFactory("secondHibernetCode");
+			EntityManager manager= factory.createEntityManager();
+			manager.getTransaction().begin();
+			String jpql= "s.regNum from Student s";
+			Query query= manager.createQuery(jpql);
+			List<Object[]> list= query.getResultList();
+			for(Object[] obj:list)
+			{
+				for(Object o1:obj)
+				{
+					System.out.println(o1);
+				}
+			}
+			manager.getTransaction().commit();
+		}
+		}
+
+See Diag 12
+		package model;
+		import java.util.List;
+		import java.util.Scanner;
+		import javax.persistence.EntityManager;
+		import javax.persistence.EntityManagerFactory;
+		import javax.persistence.Persistence;
+		import javax.persistence.Query;
+		public class Pg1UserInfosDec30 
+		{
+		public static void main(String[] args) 
+		{
+			EntityManagerFactory factory= Persistence.createEntityManagerFactory("secondHibernetCode");
+			EntityManager manager= factory.createEntityManager();
+			manager.getTransaction().begin();
+			String jpql= "Select u.name, u.address, u.emailId, u.pinCode from Userinfo u where u.phoneNum=:ph";
+			Query query= manager.createQuery(jpql);
+			Scanner scan= new Scanner(System.in);
+			System.out.println("Enter phoneNum");
+			String uPhone= scan.next();
+			query.setParameter("ph", uPhone);
+			List<Object[]> list= query.getResultList();
+			for(Object[] obj:list)
+			{
+				for(Object o1:obj)
+				{
+					System.out.println(o1);
+				}
+			}
+			manager.getTransaction().commit();
+		}
+		}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+31-12-2020
+
+The 2 major disadvantage of JPQL queries are
+	1. JPQL queries has the infulence of SQL dyntax.
+	2. If JPQL queries has to be accessed from 1 class to other class then we have to create object.
+	More number of classes requires more number of objects, which occupies more memory and results in less performace.
+To overcome these drawbacks, we make use of Named queries
+
+Named queries
+The main advantage of writting these queries is, we can avoid multiple object creation, in order to access the queries in another class.
+All the Named queries must be declared only above 'entity classes' so that it can be access in all other classes without creating an object.
+The annotations used for working with Named queries are
+	1. @NamedQuery annotation
+	It is prefered only for writting single query.
+	It consists of 2 attributes
+		1. Name attribute- Takes identifier to be used while execution.
+		2. Query attribute- Takes the actual query which has to be executed.
+	2. @NamedQueries annotation
+	It is prefered to write multiple queries where each query will be having different identifier.
+	syntax 
+	@NamedQueries 
+	({ 
+	@NamedQuery (name=" ", query= " "),
+	@NamedQuery (name=" ", query= " ")
+	})
+
+Difference between JPQL and Named queries
+	1. JPQL queries are written within the main class.
+	   Named queries are written above the entity class.
+	2. To access JPQL queries in other classes, it is necessary that we have to create an object.
+	   tO ACCESS Named queries in other classes, we need identifiers only.
+	3. The method used for JPQL queries is createQuery().
+	   For Named queries the method used is createNamedQuery().
+
+Similarities of JPQL queries and Named queries
+	1. Both of them have the influesnce of SQL syntax.
+	2. Both of them passes run time values to the queries.
+	3. Both of them uses setParameters() to pass the values during run time.
+	4. The interface query is same.
+	5. Execution of the query is same.
+	6. Object[] is return type in both of them.
+
+	wap to update using Named queries
+	Entity query
+		@NamedQuery(name="Car", query="update Car c set c.carcolor=:cc where c.carnumber=:cn")
+	Hibernate
+		package model;
+		import java.util.List;
+		import java.util.Scanner;
+		import javax.persistence.EntityManager;
+		import javax.persistence.EntityManagerFactory;
+		import javax.persistence.Persistence;
+		import javax.persistence.Query;
+		public class Pg2MainClassCarDec31 
+		{
+		public static void main(String[] args) 
+		{
+			EntityManagerFactory factory= Persistence.createEntityManagerFactory("secondHibernetCode");
+			EntityManager manager= factory.createEntityManager();
+			manager.getTransaction().begin();
+			Query query= manager.createNamedQuery("Car");
+			Scanner scan= new Scanner(System.in);
+			System.out.println("Enter carNum");
+			query.setParameter("cn", scan.next());
+			System.out.println("Enter carColor");
+			query.setParameter("cc", scan.next());
+			query.executeUpdate();
+			manager.getTransaction().commit();
+			System.out.println("Updated");
+		}
+		}
+ 
+	wap to read using Named queries
+	Entity query
+		@NamedQuery(name="Bookinfo", query="select b.bookAuthor, b.bookPrice from Bookinfo b where b.bookTitle=:bt")
+	Hibernate
+		package model;
+		import java.util.List;
+		import java.util.Scanner;
+		import javax.persistence.EntityManager;
+		import javax.persistence.EntityManagerFactory;
+		import javax.persistence.Persistence;
+		import javax.persistence.Query;
+		public class Pg3MainClassBookinfoDec31 
+		{
+		public static void main(String[] args) 
+		{
+			EntityManagerFactory factory= Persistence.createEntityManagerFactory("secondHibernetCode");
+			EntityManager manager= factory.createEntityManager();
+			manager.getTransaction().begin();
+			Query query= manager.createNamedQuery("Bookinfo");
+			Scanner scan= new Scanner(System.in);
+			System.out.println("Enter bookTitle");
+			query.setParameter("bt", scan.next());
+			List<Object[]> list= query.getResultList();
+			for(Object[] obj:list)
+			{
+				for(Object o1:obj)
+				{
+					System.out.println(o1);
+				}
+			}
+			manager.getTransaction().commit();
+		}
+		}
+
+	wap to delete using Named queries 	
+	Entity query
+		@NamedQuery(name="Signin", query="delete from Signin s where s.regnum=:rn")
+	Hibernate
+		package model;
+		import java.util.List;
+		import java.util.Scanner;
+		import javax.persistence.EntityManager;
+		import javax.persistence.EntityManagerFactory;
+		import javax.persistence.Persistence;
+		import javax.persistence.Query;
+		public class Pg4MainClassSigninDec31 
+		{
+		public static void main(String[] args) 
+		{
+			EntityManagerFactory factory= Persistence.createEntityManagerFactory("secondHibernetCode");
+			EntityManager manager= factory.createEntityManager();
+			manager.getTransaction().begin();
+			Query query= manager.createNamedQuery("Signin");
+			Scanner scan= new Scanner(System.in);
+			System.out.println("Enter regNum");
+			query.setParameter("rn", scan.nextInt());
+			query.executeUpdate();
+			manager.getTransaction().commit();
+			System.out.println("Deleated");
+		}
+		}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+31-12-2021
+
+Named Queries
+
+	Update
+	Back End
+		package controller;
+		import java.io.IOException;
+		import java.io.PrintWriter;
+		import javax.persistence.EntityManager;
+		import javax.persistence.EntityManagerFactory;
+		import javax.persistence.Persistence;
+		import javax.persistence.Query;
+		import javax.servlet.ServletException;
+		import javax.servlet.annotation.WebServlet;
+		import javax.servlet.http.HttpServlet;
+		import javax.servlet.http.HttpServletRequest;
+		import javax.servlet.http.HttpServletResponse;
+		@WebServlet("/view/Pg1MainClass1Jan1")
+		public class Pg1MainClass1Jan1 extends HttpServlet
+		{
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+		{
+			String emp= req.getParameter("empid");
+			int empid= Integer.parseInt(emp);
+			String empde= req.getParameter("empde");
+			EntityManagerFactory factory= Persistence.createEntityManagerFactory("ProjectDyn2");
+			EntityManager manager= factory.createEntityManager();
+			manager.getTransaction().begin();
+			Query query= manager.createNamedQuery("Emp");
+			query.setParameter("ei", empid);
+			query.setParameter("ed", empde);
+			query.executeUpdate();
+			manager.getTransaction().commit();
+			PrintWriter PrintWriter= resp.getWriter();
+			System.out.println("Updated");
+		}	
+		}
+	Front End
+		<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action= "Pg1MainClass1Jan1" method= "post">
+		Enter employeeId <input name= "empid">
+		Enter empDesignation <input name= "empde">
+		<input type= "submit" value= "Update">
+		</form>
+		</body>
+		</html>
+
+	Search
+	Back End
+		package controller;
+		import java.io.IOException;
+		import java.io.PrintWriter;
+		import java.util.List;
+		import javax.persistence.EntityManager;
+		import javax.persistence.EntityManagerFactory;
+		import javax.persistence.Persistence;
+		import javax.persistence.Query;
+		import javax.servlet.ServletException;
+		import javax.servlet.annotation.WebServlet;
+		import javax.servlet.http.HttpServlet;
+		import javax.servlet.http.HttpServletRequest;
+		import javax.servlet.http.HttpServletResponse;
+		@WebServlet("/view/Pg1MainClass2Jan1")
+		public class Pg1MainClass2Jan1 extends HttpServlet 
+		{
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+		{
+			PrintWriter PrintWriter= resp.getWriter();
+			String bti= req.getParameter("bti");
+			EntityManagerFactory factory= Persistence.createEntityManagerFactory("ProjectDyn2");
+			EntityManager manager= factory.createEntityManager();
+			manager.getTransaction().begin();
+			Query query= manager.createNamedQuery("Bookinfo");
+			query.setParameter("bt", bti);
+			List<Object[]> list= query.getResultList();
+			for(Object[] obj:list)
+			{
+				for(Object o1:obj)
+				{
+					PrintWriter.println(o1);
+				}
+			}
+			manager.getTransaction().commit();
+		}
+		}	
+	Front End
+		<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action= "Pg1MainClass2Jan1" method= "post">
+		Enter BookTitle <input name= "bti">
+		<input type= "submit" value= "search">
+		</form>
+		</body>
+		</html>	
+	
+	Delete
+	Back End
+		package controller;
+		import java.io.IOException;
+		import java.util.Scanner;
+		import javax.persistence.EntityManager;
+		import javax.persistence.EntityManagerFactory;
+		import javax.persistence.Persistence;
+		import javax.persistence.Query;
+		import javax.servlet.ServletException;
+		import javax.servlet.annotation.WebServlet;
+		import javax.servlet.http.HttpServlet;
+		import javax.servlet.http.HttpServletRequest;
+		import javax.servlet.http.HttpServletResponse;
+		@WebServlet("/view/Pg1MainClass3Jan1")
+		public class Pg1MainClass3Jan1 extends HttpServlet
+		{
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+		{
+			EntityManagerFactory factory= Persistence.createEntityManagerFactory("ProjectDyn2");
+			EntityManager manager= factory.createEntityManager();
+			manager.getTransaction().begin();
+			Query query= manager.createNamedQuery("Signin");
+			Scanner scan= new Scanner(System.in);
+			System.out.println("Enter regNum");
+			query.setParameter("rn", scan.nextInt());
+			query.executeUpdate();
+			manager.getTransaction().commit();
+			System.out.println("Deleated");
+		}
+		}
+	Front End
+		<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action= "Pg1MainClass2Jan1" method= "post">
+		Enter RegaNum <input name= "bt">
+		<input type= "submit" value= "Delete">
+		</form>
+		</body>
+		</html>
+
+JPQL
+	Search
+	Back End
+		package controller;
+		import java.io.IOException;
+		import java.io.PrintWriter;
+		import java.util.List;
+		import java.util.Scanner;
+		import javax.persistence.EntityManager;
+		import javax.persistence.EntityManagerFactory;
+		import javax.persistence.Persistence;
+		import javax.persistence.Query;
+		import javax.servlet.ServletException;
+		import javax.servlet.annotation.WebServlet;
+		import javax.servlet.http.HttpServlet;
+		import javax.servlet.http.HttpServletRequest;
+		import javax.servlet.http.HttpServletResponse;
+		@WebServlet("/view/Pg2MainClassJan1")
+		public class Pg2MainClassJan1 extends HttpServlet
+		{
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+		{
+			PrintWriter printWriter= resp.getWriter();
+			String phno= req.getParameter("phno");
+			EntityManagerFactory factory= Persistence.createEntityManagerFactory("ProjectDyn2");
+			EntityManager manager= factory.createEntityManager();
+			manager.getTransaction().begin();
+			String jpql= "Select u.name, u.address, u.emailId, u.pinCode from Userinfo u where u.phoneNum=:ph";
+			Query query= manager.createQuery(jpql);
+			query.setParameter("ph", phno);
+			List<Object[]> list= query.getResultList();
+			for(Object[] obj:list)
+			{
+				for(Object o1:obj)
+				{
+					System.out.println(o1);
+				}
+			}
+			manager.getTransaction().commit();
+		}
+		}	
+	Front End
+		<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+		<!DOCTYPE html>
+		<html>
+		<head>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		</head>
+		<body>
+		<form action= "Pg2MainClassJan1" method= "post">
+		Enter PhoneNum <input name= "phno">
+		<input type= "submit" value= "Search">
+		</form>
+		</body>
+		</html>
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+02-01-2021
+
+Criteria JPQL
+The adavantage of using Criteria is to avoid teh interface of SQL signature in Hibernate.
+Few intrfaces involed in Criteria JPQL are
+	1. CriteriaBuilder 
+	2. CriteriaQuery
+	3. CriteriaUpdate
+	4. CriteriaDelete
+The helper methods involved for these above interfaces are
+	1. getCriteriaBuilder()
+	2. createQuery()
+	3. createCriteriaUpdate()
+	4. createCriteriaDelete()
+To inform Hibernate about Criteria working, we have to make use of 'CriteriaBuilder interface and helper method getCriteriaBuilder()'.
+To perform select operation, we have to make use of 'CriteriaQuery interface and helper method createQuery()'.
+	syntax
+	CriteriaQuery<Car> select= builder.createQuery(Car.class);
+To perform update operation, we have to make use of 'CriteriaUpdate interface and helper method createCriteriaUpdate()'.
+	syntax
+	CriteriaUpdate<Car> update= builder.createCriteriaUpdate(Car.class);
+To perform delete operation, we have to make use of 'CriteriaDelete interface and helper method createCriteriaDelete()'.
+	syntax
+	CriteriaDelete<Car> delete= builder.createCriteriaDelete(Car.class);
+After specifyning the type of operation, we have to specify from which entity class the data has to be retrieved.
+	syntax
+	Root<Car> from= select.from(Car.class);
+After creating the Criteria, we have to pass for CreateQuery() followed by its execution.
+
+Steps involved in writing Criteria code is
+	1. Inform Hibernate about Criteria working.
+	2. Specify the type of operation to be performed.
+	3. Specify the EntityClassName on which operation has to be performed.
+	4. Specify the condition on the entity class [where condition].
+
+	wap to retrive data
+	Car table
+		package model;
+		import java.util.List;
+		import javax.persistence.EntityManager;
+		import javax.persistence.EntityManagerFactory;
+		import javax.persistence.Persistence;
+		import javax.persistence.Query;
+		import javax.persistence.criteria.CriteriaBuilder;
+		import javax.persistence.criteria.CriteriaQuery;
+		import javax.persistence.criteria.Root;
+		public class Pg1MainClassJan2 
+		{
+		public static void main(String[] args) 
+		{
+			EntityManagerFactory factory= Persistence.createEntityManagerFactory("secondHibernetCode");
+			EntityManager manager= factory.createEntityManager();
+			manager.getTransaction().begin();
+			//Step-1: Inform Hibernate about Criteria
+			CriteriaBuilder builder= manager.getCriteriaBuilder();
+			//Step-2: Telling which type of operation we are performing
+			CriteriaQuery<Car> select= builder.createQuery(Car.class);
+			//Step-3: Specifying EntityClassName from we have to read the data
+			Root<Car> from= select.from(Car.class);
+			Query query= manager.createQuery(select);
+			List<Car> list= query.getResultList();
+			System.out.println(list);
+			manager.getTransaction().commit();
+		}
+		}
+
+	Emp table
+		package model;
+		import java.util.List;
+		import javax.persistence.EntityManager;
+		import javax.persistence.EntityManagerFactory;
+		import javax.persistence.Persistence;
+		import javax.persistence.Query;
+		import javax.persistence.criteria.CriteriaBuilder;
+		import javax.persistence.criteria.CriteriaQuery;
+		import javax.persistence.criteria.Root;
+		public class Pg1MainClassJan2 
+		{
+		public static void main(String[] args) 
+		{
+			EntityManagerFactory factory= Persistence.createEntityManagerFactory("secondHibernetCode");
+			EntityManager manager= factory.createEntityManager();
+			manager.getTransaction().begin();
+			//Step-1: Inform Hibernate about Criteria
+			CriteriaBuilder builder= manager.getCriteriaBuilder();
+			//Step-2: Telling which type of operation we are performing
+			CriteriaQuery<Emp> select= builder.createQuery(Emp.class);
+			//Step-3: Specifying EntityClassName from we have to read the data
+			Root<Emp> from= select.from(Emp.class);
+			Query query= manager.createQuery(select);
+			List<Emp> list= query.getResultList();
+			System.out.println(list);
+			manager.getTransaction().commit();
+		}
+		}
